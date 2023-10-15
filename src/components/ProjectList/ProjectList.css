@@ -1,0 +1,41 @@
+.project-list {
+    margin: 24px 20px;
+    border-top: 1px solid #dcdcdc;
+}
+
+.project-list h1 {
+    margin: 0px;
+    padding: 20px 0;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.project-list .item {
+    display: grid;
+    padding: 10px 10px;
+    grid-template-columns: 100px 1fr;
+    border-bottom: 1px solid #dcdcdc;
+    align-items: center;
+}
+
+.project-list .item:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.project-list .item .project-code span {
+    background-color: #dcdcdc;
+    display: inline-block;
+    padding: 5px 10px;
+    font-weight: 600;
+}
+
+.project-list .item .project-title:hover {
+    color: #0d42ff;
+    text-decoration: underline;
+}
+
+.project-list .filters {
+    width: 100%;
+    margin: 0px 0 20px 0;
+}
