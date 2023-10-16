@@ -16,15 +16,15 @@ function ManagementHeader() {
                     <a href={"/board"}>Доски</a>
                 </div>
                 <div className={"item"}>
-                    <a href={"/projects"}>Проектные области</a>
+                    <a href={"/projects"}>Проекты</a>
                 </div>
             </div>
             <div className={"user"}>
                 {UserStore.checkAuth() &&
-                    <div class={"user-title"}>Добрый день!</div>
+                    <div className={"user-title"}>Добрый день!</div>
                 }
                 {!UserStore.checkAuth() &&
-                    <div class={"user-title"}><a href={"/login"}>Войти</a></div>
+                    <div className={"user-title"}><a href={"/login"}>Войти</a></div>
                 }
             </div>
         </div>

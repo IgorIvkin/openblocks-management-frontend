@@ -2,3 +2,119 @@
     margin: 24px 20px;
     border-top: 1px solid #dcdcdc;
 }
+
+.generic-backlog h1 {
+    margin: 0px;
+    padding: 20px 0;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.generic-backlog .task-list {
+    margin: 20px 0;
+}
+
+.generic-backlog .task-list .task-list-header {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 80px 100px 100px;
+    grid-column-gap: 5px;
+    margin: 10px 0;
+    font-weight: 600;
+}
+
+.generic-backlog .task-list .task-item {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 80px 20px 30px 1fr 80px 100px 100px;
+    grid-column-gap: 5px;
+    padding: 5px 2px;
+    border-bottom: 1px solid #dcdcdc;
+    font-size: 15px;
+    min-height: 25px;
+    background-color: #ffffff;
+}
+.generic-backlog .task-list .task-item a:link {
+    color: #303030;
+    text-decoration: none;
+}
+
+.generic-backlog .task-list .task-item a:visited {
+    color: #303030;
+}
+
+.generic-backlog .task-list .task-item a:hover {
+    color: #0d42ff;
+    text-decoration: underline;
+}
+
+.generic-backlog .task-list .task-item .task-type {
+    cursor: default;
+}
+
+.generic-backlog .task-list .task-item .task-type-task {
+    background-color: #0077b6;
+    display: block;
+    height: 12px;
+    width: 12px;
+    border-radius: 10px;
+}
+
+.generic-backlog .task-list .task-item .task-type-bug {
+    background-color: #e63946;
+    display: block;
+    height: 12px;
+    width: 12px;
+    border-radius: 10px;
+}
+
+.generic-backlog .task-list .task-item .task-type-story {
+    background-color: #6a994e;
+    display: block;
+    height: 12px;
+    width: 12px;
+    border-radius: 10px;
+}
+
+.generic-backlog .task-list .task-item .task-priority {
+    font-size: 16px;
+    cursor: default;
+}
+
+.generic-backlog .task-list .task-item .task-priority-low {
+    color: #52b788;
+}
+
+.generic-backlog .task-list .task-item .task-priority-medium {
+    color: #ffbf69;
+}
+
+.generic-backlog .task-list .task-item .task-priority-high {
+    color: #e63946;
+}
+
+.generic-backlog .task-list .task-item .task-priority-critical {
+    color: #e63946;
+}
+
+.generic-backlog .task-list .task-item .task-executor {
+    display: flex;
+    justify-content: center;
+}
+
+.generic-backlog .task-list .task-item .task-executor span.existing-user {
+    background-color: #dcdcdc;
+    display: inline-block;
+    padding: 5px;
+    width: 18px;
+    height: 18px;
+    border-radius: 30px;
+}
+
+.generic-backlog .task-list .task-item .task-closed {
+    text-decoration: line-through !important;
+}
+
+.generic-backlog .task-list .task-item a.task-closed:hover {
+    text-decoration: line-through underline !important;
+}

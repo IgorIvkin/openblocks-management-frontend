@@ -18,6 +18,8 @@ const App = observer(() => {
                     <Route path="/login" element={<LoginForm />} />
                     <Route path="/" element={<PrivateRoute />}>
                         <Route path="" element={<Backlog />} />
+                        <Route path="backlog" element={<Backlog />} />
+                        <Route path="backlog/:projectCode" element={<Backlog />} />
                         <Route path="projects" element={<ProjectList />} />
                     </Route>
                 </Routes>
