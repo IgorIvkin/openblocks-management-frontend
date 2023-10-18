@@ -81,22 +81,6 @@
     cursor: default;
 }
 
-.generic-backlog .task-list .task-item .task-priority-low {
-    color: #52b788;
-}
-
-.generic-backlog .task-list .task-item .task-priority-medium {
-    color: #ffbf69;
-}
-
-.generic-backlog .task-list .task-item .task-priority-high {
-    color: #e63946;
-}
-
-.generic-backlog .task-list .task-item .task-priority-critical {
-    color: #e63946;
-}
-
 .generic-backlog .task-list .task-item .task-executor {
     display: flex;
     justify-content: center;

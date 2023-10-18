@@ -1,4 +1,4 @@
-import './Backlog.css'
+import './TaskPriority.css'
 import React from "react";
 
 function TaskPriority({priority}) {

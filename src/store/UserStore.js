@@ -13,11 +13,7 @@ class UserStore {
     }
 
     checkAuth() {
-        if (localStorage.getItem("token")) {
-            this.isAuthenticated = true;
-        } else {
-            this.isAuthenticated = false;
-        }
+        this.isAuthenticated = !!localStorage.getItem("token");
         return this.isAuthenticated;
     }
 

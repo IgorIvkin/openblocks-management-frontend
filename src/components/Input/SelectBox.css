@@ -1,0 +1,75 @@
+.select-box {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', serif;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid #dcdcdc;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.select-box.select-box-open {
+    color: #212529;
+    background-color: #fff;
+    border-color: rgb(0, 132, 255);
+    outline: 0;
+    box-shadow: 0 0 0 2px rgb(13 110 253 / 25%);
+}
+
+.select-box .select-box-layout {
+    display: grid;
+    grid-template-columns: 1fr 30px;
+}
+
+.select-box .select-box-arrow {
+    color: #909090;
+    padding: 5px;
+}
+
+.select-box .select-box-arrow svg {
+    height: 15px;
+    width: 15px;
+    fill: #505050;
+    transition: 0.3s;
+}
+
+.select-box.select-box-open .select-box-arrow svg {
+    transform: rotate(180deg);
+}
+
+.select-box .select-box-value {
+    padding: 5px 10px;
+}
+
+.select-box.select-box-open .select-box-options {
+    display: block;
+    position: absolute;
+    margin: 1px 0 0 0;
+    width: 100%;
+    color: #212529;
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+    outline: 0;
+    z-index: 10;
+}
+
+.select-box .select-box-options {
+    display: none;
+}
+
+.select-box .select-box-options .select-box-item {
+    padding: 5px 10px;
+}
+
+.select-box .select-box-options .select-box-item:hover {
+    background-color: #0066cc;
+    color: #ffffff;
+}

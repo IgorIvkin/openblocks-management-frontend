@@ -1,0 +1,127 @@
+.generic-container .task-card {
+    margin: 24px 20px;
+    border-top: 1px solid #dcdcdc;
+    display: grid;
+    grid-template-columns: 2fr 1.5fr;
+}
+
+.generic-container .task-card h2 {
+    margin: 0;
+    padding: 20px 0;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.generic-container .task-card a:link {
+    color: #0066cc;
+    text-decoration: none;
+    border-bottom: 1px solid #a2d2ff;
+}
+
+.generic-container .task-card a:visited {
+    color: #0066cc;
+    text-decoration: none;
+    border-bottom: 1px solid #a2d2ff;
+}
+
+.generic-container .task-card a:hover {
+    color: #0d42ff;
+    text-decoration: none;
+    border-bottom: 1px solid #0066cc;
+}
+
+.generic-container .task-card .task-breadcrumbs {
+    font-size: 14px;
+    margin: 20px 0 0 0;
+}
+
+.generic-container .task-card .task-header {
+    display: flex;
+    align-items: center;
+}
+
+.generic-container .task-card .task-header .task-type {
+    margin: 0 10px 0 0;
+}
+
+.generic-container .task-card .task-type-task {
+    background-color: #0077b6;
+    display: block;
+    height: 12px;
+    width: 12px;
+    border-radius: 10px;
+}
+
+.generic-container .task-card .task-type-bug {
+    background-color: #e63946;
+    display: block;
+    height: 12px;
+    width: 12px;
+    border-radius: 10px;
+}
+
+.generic-container .task-card .task-type-story {
+    background-color: #6a994e;
+    display: block;
+    height: 12px;
+    width: 12px;
+    border-radius: 10px;
+}
+
+.generic-container .task-card .task-header .task-code {
+    margin: 0 10px 0 0;
+}
+
+.generic-container .task-card .task-param {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    margin: 5px 0;
+    align-items: center;
+}
+
+.generic-container .task-card .task-param .task-param-name {
+    font-size: 14px;
+}
+
+.generic-container .task-card .task-param .task-param-value {
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    transition: 0.2s;
+    padding: 3px;
+}
+
+.generic-container .task-card .task-param .task-param-value:hover {
+    border: 1px solid #dcdcdc;
+    border-right: 3px solid #0066cc;
+    cursor: text;
+}
+
+.generic-container .task-card .task-explanation {
+    margin: 20px 0;
+    -webkit-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.generic-container .task-card .task-explanation h3 {
+    margin: 0 0 10px 0;
+    padding: 0;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.generic-container .task-card .task-explanation .task-explanation-block {
+    padding: 20px 15px 20px 15px;
+}
+
+.generic-container .task-card .task-explanation .task-explanation-text {
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    transition: 0.2s;
+}
+
+.generic-container .task-card .task-explanation .task-explanation-text:hover {
+    border: 1px solid #dcdcdc;
+    border-right: 3px solid #0066cc;
+    cursor: text;
+}
