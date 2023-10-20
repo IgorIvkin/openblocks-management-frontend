@@ -2,7 +2,9 @@ import './Backlog.css'
 import React, {useState} from "react";
 import TaskType from "./TaskType";
 import TaskPriority from "./TaskPriority";
+import TaskUtilService from "../../service/TaskUtilService";
 import {Draggable} from "react-beautiful-dnd";
+import TaskStatus from "./TaskStatus";
 
 function BacklogTask({index, taskCode, type, status, estimation, priority, subject, dueDate, executor}) {
 
@@ -11,21 +13,6 @@ function BacklogTask({index, taskCode, type, status, estimation, priority, subje
             return "task-closed";
         }
         return "";
-    }
-
-    function addEstimation() {
-        if (estimation) {
-            const weeks = Math.floor(estimation / 5);
-            const remainderDays = estimation % 5;
-            if (weeks < 1) {
-                return estimation + 'д';
-            } else if (remainderDays > 0) {
-                return weeks + 'н ' + remainderDays + 'д';
-            } else {
-                return weeks + 'н';
-            }
-        }
-        return "-"
     }
 
     return (
@@ -47,7 +34,8 @@ function BacklogTask({index, taskCode, type, status, estimation, priority, subje
                            href={'/tasks/view/' + taskCode}
                            data-task-code={taskCode}>{subject}</a>
                     </div>
-                    <div className={"task-estimation"}>{addEstimation()}</div>
+                    <div className={"task-status"}><TaskStatus status={status} /></div>
+                    <div className={"task-estimation"}>{TaskUtilService.getEstimation(estimation)}</div>
                     <div className={"task-due-date"}>{dueDate ? dueDate : '-'}</div>
                     <div className={"task-executor"} title={executor.name}>
                         {executor.name &&

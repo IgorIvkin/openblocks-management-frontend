@@ -26,7 +26,7 @@
 .generic-backlog .task-list .task-item {
     display: grid;
     align-items: center;
-    grid-template-columns: 80px 20px 30px 1fr 80px 100px 100px;
+    grid-template-columns: 80px 20px 30px 1fr auto 80px 100px 100px;
     grid-column-gap: 5px;
     padding: 5px 2px;
     border-bottom: 1px solid #dcdcdc;

@@ -81,6 +81,7 @@
 
 .generic-container .task-card .task-param .task-param-name {
     font-size: 14px;
+    color: #505050;
 }
 
 .generic-container .task-card .task-param .task-param-value {
@@ -125,3 +126,57 @@
     border-right: 3px solid #0066cc;
     cursor: text;
 }
+
+.generic-container .task-card .details-block {
+    margin: 20px 0 0 50px;
+}
+
+.generic-container .task-card .details-block .details-item {
+    margin: 0 0 20px 0;
+    display: grid;
+    max-width: 500px;
+}
+
+.generic-container .task-card .details-block .details-item .details-item-name {
+    font-size: 14px;
+    color: #505050;
+}
+
+.generic-container .task-card .details-block .details-item .details-item-value {
+    margin: 5px 0 0 0;
+    box-sizing: border-box;
+}
+
+.generic-container .task-card .details-block .details-item .editable-details-item-value:hover {
+    border: 1px solid #dcdcdc;
+    border-right: 3px solid #0066cc;
+    cursor: text;
+}
+
+.generic-container .task-card .details-block .details-item span.existing-user {
+    background-color: #dcdcdc;
+    padding: 5px;
+    margin: 0 5px 0 0;
+    width: 25px;
+    height: 25px;
+    display: inline-grid;
+    border-radius: 30px;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.generic-container .task-card .details-block .details-item .task-due-date {
+    width: 100%;
+    display: block;
+    cursor: text;
+    border: 1px solid transparent;
+}
+
+.generic-container .task-card .details-block .details-item .task-due-date:hover {
+    border: 1px solid #dcdcdc;
+    border-right: 3px solid #0066cc;
+    cursor: text;
+}
+
+

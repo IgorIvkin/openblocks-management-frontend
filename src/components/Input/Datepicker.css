@@ -1,0 +1,19 @@
+.qs-square:not(.qs-empty):not(.qs-disabled):not(.qs-day):not(.qs-active):hover {
+    background: #86b7fe !important;
+}
+
+.qs-month-year {
+    font-weight: 400;
+}
+
+.qs-controls {
+    padding: 10px !important;
+    background-color: #ffffff !important;
+}
+
+.qs-datepicker-container {
+    font-size: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    border: 1px solid #dcdcdc;
+}

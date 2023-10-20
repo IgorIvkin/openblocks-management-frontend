@@ -6,6 +6,11 @@ import ReferenceService from "../../service/ReferenceService";
 import TaskType from "../Backlog/TaskType";
 import SelectBox from "../Input/SelectBox";
 import TaskPriority from "../Backlog/TaskPriority";
+import TaskStatus from "../Backlog/TaskStatus";
+import TaskUtilService from "../../service/TaskUtilService";
+import Datepicker from "../Input/Datepicker";
+import Autocomplete from "../Input/Autocomplete";
+import UserAutocomplete from "./UserAutocomplete";
 
 function TaskCard() {
 
@@ -14,9 +19,12 @@ function TaskCard() {
     let [statuses, setStatuses] = useState([]);
     let [priorities, setPriorities] = useState([]);
 
-    let [isEditStatus, setIsEditStatus] = useState(false)
-    let [isEditPriority, setIsEditPriority] = useState(false)
-    let [isEditExplanation, setIsEditExplanation] = useState(false)
+    let [isEditStatus, setIsEditStatus] = useState(false);
+    let [isEditPriority, setIsEditPriority] = useState(false);
+    let [isEditExplanation, setIsEditExplanation] = useState(false);
+    let [isEditDueDate, setIsEditDueDate] = useState(false);
+    let [isEditOwner, setIsEditOwner] = useState(false);
+    let [isEditExecutor, setIsEditExecutor] = useState(false);
 
     async function getTask() {
         try {
@@ -73,6 +81,47 @@ function TaskCard() {
         setIsEditExplanation(false);
     }
 
+    function openEditDueDate(event) {
+        event.stopPropagation();
+        setIsEditDueDate(true);
+    }
+
+    function closeEditDueDate(date) {
+        if (task.dueDate !== date) {
+            task.dueDate = date;
+            setTask(task);
+        }
+        setIsEditDueDate(false);
+    }
+
+    function openEditOwner() {
+        setIsEditOwner(true);
+    }
+
+    function closeEditOwner(owner) {
+        if (task?.owner?.id !== owner.id) {
+            task["owner"]["id"] = owner.id;
+            task["owner"]["shortName"] = owner.shortName;
+            task["owner"]["name"] = owner.name;
+            setTask(task);
+        }
+        setIsEditOwner(false);
+    }
+
+    function openEditExecutor() {
+        setIsEditExecutor(true);
+    }
+
+    function closeEditExecutor(executor) {
+        if (task?.executor?.id !== executor.id) {
+            task["executor"]["id"] = executor.id;
+            task["executor"]["shortName"] = executor.shortName;
+            task["executor"]["name"] = executor.name;
+            setTask(task);
+        }
+        setIsEditExecutor(false);
+    }
+
     useEffect(() => {
         getTask()
         getStatuses()
@@ -100,7 +149,7 @@ function TaskCard() {
                         <div className={"task-param-name"}>Статус задачи</div>
                         {!isEditStatus &&
                             <div className={"task-param-value"}
-                                 onClick={openEditStatus}>{statuses[task.status]}</div>
+                                 onClick={openEditStatus}><TaskStatus status={task.status}/></div>
                         }
                         {isEditStatus &&
                             <SelectBox values={statuses}
@@ -142,9 +191,69 @@ function TaskCard() {
                             </div>}
                     </div>
                 </div>
+
             </div>
             <div className={"details-block"}>
-
+                <div className={"details-item"}>
+                    <div className={"details-item-name"}>Владелец задачи</div>
+                    <div className={"details-item-value"}>
+                        {!isEditOwner &&
+                            <div onClick={openEditOwner}>
+                                {task?.owner?.name &&
+                                    <span>
+                                    <span className={"existing-user"}>{task?.owner?.shortName}</span>
+                                        {task?.owner?.name}
+                                </span>}
+                                {!task?.owner?.name && <span>-</span>}
+                            </div>}
+                        {isEditOwner &&
+                            <UserAutocomplete id={"owner-autocomplete"}
+                                              onChange={closeEditOwner} />}
+                    </div>
+                </div>
+                <div className={"details-item"}>
+                    <div className={"details-item-name"}>Исполнитель</div>
+                    <div className={"details-item-value"}>
+                        {!isEditExecutor &&
+                            <div onClick={openEditExecutor}>
+                                {task?.executor?.name &&
+                                    <span>
+                                    <span className={"existing-user"}>{task?.executor?.shortName}</span>
+                                        {task?.executor?.name}
+                                </span>}
+                                {!task?.executor?.name && <span>-</span>}
+                            </div>}
+                        {isEditExecutor &&
+                            <UserAutocomplete id={"executor-autocomplete"}
+                                              onChange={closeEditExecutor} />}
+                    </div>
+                </div>
+                <div className={"details-item"}>
+                    <div className={"details-item-name"}>Срок исполнения</div>
+                    <div className={"details-item-value"}>
+                        {isEditDueDate &&
+                            <Datepicker id={"due-date-datepicker"}
+                                        selectedDate={task.dueDate}
+                                        onChange={closeEditDueDate}/>}
+                        {!isEditDueDate &&
+                            <span className={"task-due-date"}
+                                  onClick={openEditDueDate}>{TaskUtilService.getLocalDateByIsoDate(task.dueDate)}</span>}
+                    </div>
+                </div>
+                <div className={"details-item"}>
+                    <div className={"details-item-name"}>Оценка</div>
+                    <div className={"details-item-value"}>{TaskUtilService.getEstimation(task.estimation)}</div>
+                </div>
+                <div className={"details-item"}>
+                    <div className={"details-item-name"}>Дата создания задачи</div>
+                    <div
+                        className={"details-item-value"}>{TaskUtilService.getLocalDateTimeByIsoDateTime(task.createdAt)}</div>
+                </div>
+                <div className={"details-item"}>
+                    <div className={"details-item-name"}>Дата последнего обновления</div>
+                    <div
+                        className={"details-item-value"}>{TaskUtilService.getLocalDateTimeByIsoDateTime(task.updatedAt)}</div>
+                </div>
             </div>
         </div>
     );

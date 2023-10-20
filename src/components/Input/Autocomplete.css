@@ -1,0 +1,36 @@
+.autocomplete {
+    position: relative;
+    box-sizing: border-box;
+}
+
+.autocomplete-layout {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    margin: 1px 0 0 0;
+    width: 100%;
+    color: #212529;
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+    outline: 0;
+    z-index: 10;
+}
+
+.autocomplete-layout-item {
+    padding: 5px 10px;
+}
+
+.autocomplete-layout-item:hover {
+    background-color: #0066cc;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.user-autocomplete-login {
+    font-size: 14px;
+    color: #707070;
+}
+
+.autocomplete-layout-item:hover .user-autocomplete-login {
+    color: #ffffff;
+}

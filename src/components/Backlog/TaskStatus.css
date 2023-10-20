@@ -1,0 +1,25 @@
+.task-status {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+
+.task-status-created {
+    background-color: #dcdcdc;
+    color: #505050;
+}
+
+.task-status-in-work {
+    background-color: #3876BF;
+    color: #ffffff;
+}
+
+.task-status-closed {
+    background-color: #96C291;
+    color: #303030;
+}
+
+.task-status-rejected {
+    background-color: #9A3B3B;
+    color: #ffffff;
+}
