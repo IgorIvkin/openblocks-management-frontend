@@ -1,7 +1,7 @@
 import './Autocomplete.css'
 import React, {useEffect, useState} from "react";
 
-function Autocomplete({id, autocompleteSource, autoCompleteLayout, onChange}) {
+function Autocomplete({id, autocompleteSource, autoCompleteLayout, onChange, placeholder}) {
 
     const [layoutItems, setLayoutItems] = useState([]);
 
@@ -62,6 +62,7 @@ function Autocomplete({id, autocompleteSource, autoCompleteLayout, onChange}) {
                    name={id}
                    autoComplete={"off"}
                    autoFocus={true}
+                   placeholder={placeholder}
                    onBlur={onBlurAutocomplete}
                    onChange={innerOnChange} />
             {layoutItems?.length > 0 &&

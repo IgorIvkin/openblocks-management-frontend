@@ -9,6 +9,10 @@ class ReferenceClient {
     async getTaskPriorities() {
         return restTemplate.get("/api/v1/references/priorities")
     }
+
+    async getTaskLinkTypes() {
+        return restTemplate.get("/api/v1/references/task-link-types")
+    }
 }
 
 export default new ReferenceClient();

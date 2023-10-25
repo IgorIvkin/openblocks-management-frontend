@@ -2,6 +2,7 @@ import './TaskCard.css'
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import TaskClient from "../../clients/TaskClient";
+import SprintClient from "../../clients/SprintClient";
 import ReferenceService from "../../service/ReferenceService";
 import TaskType from "../Backlog/TaskType";
 import SelectBox from "../Input/SelectBox";
@@ -9,8 +10,11 @@ import TaskPriority from "../Backlog/TaskPriority";
 import TaskStatus from "../Backlog/TaskStatus";
 import TaskUtilService from "../../service/TaskUtilService";
 import Datepicker from "../Input/Datepicker";
-import Autocomplete from "../Input/Autocomplete";
 import UserAutocomplete from "./UserAutocomplete";
+import TaskExplanation from "./TaskExplanation";
+import TaskComments from "./Comments/TaskComments";
+import TaskLinks from "./TaskLink/TaskLinks";
+import TaskSprint from "./TaskSprint";
 
 function TaskCard() {
 
@@ -18,6 +22,7 @@ function TaskCard() {
     let [task, setTask] = useState({});
     let [statuses, setStatuses] = useState([]);
     let [priorities, setPriorities] = useState([]);
+    let [sprints, setSprints] = useState([]);
 
     let [isEditStatus, setIsEditStatus] = useState(false);
     let [isEditPriority, setIsEditPriority] = useState(false);
@@ -25,11 +30,15 @@ function TaskCard() {
     let [isEditDueDate, setIsEditDueDate] = useState(false);
     let [isEditOwner, setIsEditOwner] = useState(false);
     let [isEditExecutor, setIsEditExecutor] = useState(false);
+    let [isEditEstimation, setIsEditEstimation] = useState(false);
+    let [isEditSubject, setIsEditSubject] = useState(false);
+    let [isEditSprint, setIsEditSprint] = useState(false);
 
     async function getTask() {
         try {
             let response = await TaskClient.getTask(taskCode);
             setTask(response.data);
+            await getSprints(response.data?.project?.code);
         } catch (error) {
             console.log("Cannot get task, reason: " + error)
         }
@@ -45,13 +54,26 @@ function TaskCard() {
         setPriorities(priorities);
     }
 
+    async function getSprints(projectCode) {
+        let unfinishedSprints = await SprintClient.getAllUnfinished(projectCode);
+        let sprints = [];
+        unfinishedSprints.data.forEach((sprint) => {
+            sprints[sprint.id] = sprint.title;
+        });
+        sprints["-"] = "Не задан";
+        setSprints(sprints);
+    }
+
     function openEditStatus() {
         setIsEditStatus(true);
     }
 
-    function closeEditStatus(key) {
-        task.status = key;
-        setTask(task);
+    async function closeEditStatus(key) {
+        if (task.status !== key) {
+            task.status = key;
+            setTask(task);
+            await TaskClient.updateTaskStatus(task.code, key);
+        }
         setIsEditStatus(false);
     }
 
@@ -59,26 +81,63 @@ function TaskCard() {
         setIsEditPriority(true);
     }
 
-    function closeEditPriority(key) {
-        task.priority = key;
-        setTask(task);
+    async function closeEditPriority(key) {
+        if (task.priority !== key) {
+            task.priority = key;
+            setTask(task);
+            await TaskClient.updateTaskPriority(task.code, key);
+        }
         setIsEditPriority(false);
+    }
+
+    function openEditSprint() {
+        setIsEditSprint(true);
+    }
+
+    async function closeEditSprint(sprintId) {
+        if (task?.sprint?.id?.toString() !== sprintId.toString()) {
+            task["sprint"]  = {
+                id: sprintId,
+                title: sprints[sprintId]
+            }
+            setTask(task);
+            await TaskClient.updateTaskSprint(task.code, sprintId);
+        }
+        setIsEditSprint(false);
     }
 
     function openEditExplanation() {
         setIsEditExplanation(true);
     }
 
-    function closeEditExplanation(event) {
+    async function closeEditExplanation(event) {
         let explanation = event.target.value;
         if (explanation && explanation !== '') {
             let oldExplanation = task.explanation;
             if (oldExplanation !== explanation) {
                 task.explanation = explanation;
                 setTask(task);
+                await TaskClient.updateTaskExplanation(task.code, explanation);
             }
         }
         setIsEditExplanation(false);
+    }
+
+    function openEditEstimation() {
+        setIsEditEstimation(true);
+    }
+
+    async function closeEditEstimation(event) {
+        let estimation = event.target.value;
+        if (estimation && estimation !== '') {
+            let oldEstimation = task.estimation;
+            if (oldEstimation !== estimation) {
+                task.estimation = estimation;
+                setTask(task);
+                await TaskClient.updateTaskEstimation(task.code, estimation);
+            }
+        }
+        setIsEditEstimation(false);
     }
 
     function openEditDueDate(event) {
@@ -86,10 +145,17 @@ function TaskCard() {
         setIsEditDueDate(true);
     }
 
-    function closeEditDueDate(date) {
-        if (task.dueDate !== date) {
-            task.dueDate = date;
+    async function closeEditDueDate(dateTime) {
+
+        function toIsoDate(date) {
+            return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        }
+
+        if (task.dueDate !== dateTime) {
+            const isoDate = dateTime ? toIsoDate(dateTime) : null;
+            task.dueDate = isoDate;
             setTask(task);
+            await TaskClient.updateTaskDueDate(task.code, isoDate);
         }
         setIsEditDueDate(false);
     }
@@ -98,12 +164,16 @@ function TaskCard() {
         setIsEditOwner(true);
     }
 
-    function closeEditOwner(owner) {
+    async function closeEditOwner(owner) {
         if (task?.owner?.id !== owner.id) {
+            if (!task.owner) {
+                task["owner"] = {};
+            }
             task["owner"]["id"] = owner.id;
             task["owner"]["shortName"] = owner.shortName;
             task["owner"]["name"] = owner.name;
             setTask(task);
+            await TaskClient.updateTaskOwner(task.code, owner.id);
         }
         setIsEditOwner(false);
     }
@@ -112,14 +182,41 @@ function TaskCard() {
         setIsEditExecutor(true);
     }
 
-    function closeEditExecutor(executor) {
+    async function closeEditExecutor(executor) {
         if (task?.executor?.id !== executor.id) {
+            if (!task.executor) {
+                task["executor"] = {};
+            }
             task["executor"]["id"] = executor.id;
             task["executor"]["shortName"] = executor.shortName;
             task["executor"]["name"] = executor.name;
             setTask(task);
+            await TaskClient.updateTaskExecutor(task.code, executor.id);
         }
         setIsEditExecutor(false);
+    }
+
+    function openEditSubject() {
+        setIsEditSubject(true);
+    }
+
+    async function closeEditSubject(event) {
+        let subject = event.target.value;
+        if (subject && subject !== '') {
+            if (subject !== task.subject) {
+                task.subject = subject;
+                setTask(task);
+                await TaskClient.updateTaskSubject(task.code, subject);
+            }
+        }
+        setIsEditSubject(false);
+    }
+
+    function onKeyDownSubject(event) {
+        event.stopPropagation();
+        if (event.key === 'Enter') {
+            event.target.blur();
+        }
     }
 
     useEffect(() => {
@@ -141,14 +238,25 @@ function TaskCard() {
                     <div className={"task-code"}>
                         <a href={"#"}>{task.code}</a>
                     </div>
-                    <h2>{task.subject}</h2>
+                    <h2>
+                        {isEditSubject &&
+                            <input type={"text"}
+                                   style={{width: "100%"}}
+                                   autoFocus={true}
+                                   defaultValue={task.subject}
+                                   onBlur={closeEditSubject}
+                                   onKeyDown={onKeyDownSubject} />}
+                        {!isEditSubject &&
+                            <div onClick={openEditSubject}
+                                 className={"editable-span"}>{task.subject}</div>}
+                    </h2>
                 </div>
 
                 <div className={"task-main-params"}>
                     <div className={"task-param"}>
                         <div className={"task-param-name"}>Статус задачи</div>
                         {!isEditStatus &&
-                            <div className={"task-param-value"}
+                            <div className={"task-param-value editable-value"}
                                  onClick={openEditStatus}><TaskStatus status={task.status}/></div>
                         }
                         {isEditStatus &&
@@ -159,10 +267,11 @@ function TaskCard() {
                                        onChange={closeEditStatus}/>
                         }
                     </div>
+
                     <div className={"task-param"}>
                         <div className={"task-param-name"}>Приоритет</div>
                         {!isEditPriority &&
-                            <div className={"task-param-value"}
+                            <div className={"task-param-value editable-value"}
                                  onClick={openEditPriority}>
                                 <TaskPriority priority={task.priority}/> {priorities[task.priority]}
                             </div>
@@ -174,14 +283,33 @@ function TaskCard() {
                                        name={"task-priority"}
                                        onChange={closeEditPriority}/>}
                     </div>
+
+                    <div className={"task-param"}>
+                        <div className={"task-param-name"}>Спринт</div>
+                        {!isEditSprint &&
+                            <div className={"task-param-value editable-value"}
+                                 onClick={openEditSprint}>
+                                <TaskSprint sprint={task?.sprint} />
+                            </div>
+                        }
+                        {isEditSprint &&
+                            <SelectBox values={sprints}
+                                       autoFocus={true}
+                                       selectedKey={task?.sprint?.id ? task?.sprint?.id : "-"}
+                                       name={"task-sprint"}
+                                       onChange={closeEditSprint} />}
+                    </div>
                 </div>
+
 
                 <div className={"task-explanation"}>
                     <div className={"task-explanation-block"}>
                         <h3>Описание задачи</h3>
                         {!isEditExplanation &&
                             <div className={"task-explanation-text"}
-                                 onClick={openEditExplanation}>{task.explanation}</div>}
+                                 onClick={openEditExplanation}>
+                                <TaskExplanation explanation={task.explanation} />
+                            </div>}
                         {isEditExplanation &&
                             <div className={""}>
                                 <textarea style={{height: "150px"}}
@@ -191,6 +319,10 @@ function TaskCard() {
                             </div>}
                     </div>
                 </div>
+
+                <TaskLinks taskCode={taskCode} />
+
+                <TaskComments taskCode={taskCode} />
 
             </div>
             <div className={"details-block"}>
@@ -208,7 +340,7 @@ function TaskCard() {
                             </div>}
                         {isEditOwner &&
                             <UserAutocomplete id={"owner-autocomplete"}
-                                              onChange={closeEditOwner} />}
+                                              onChange={closeEditOwner}/>}
                     </div>
                 </div>
                 <div className={"details-item"}>
@@ -225,7 +357,7 @@ function TaskCard() {
                             </div>}
                         {isEditExecutor &&
                             <UserAutocomplete id={"executor-autocomplete"}
-                                              onChange={closeEditExecutor} />}
+                                              onChange={closeEditExecutor}/>}
                     </div>
                 </div>
                 <div className={"details-item"}>
@@ -236,13 +368,26 @@ function TaskCard() {
                                         selectedDate={task.dueDate}
                                         onChange={closeEditDueDate}/>}
                         {!isEditDueDate &&
-                            <span className={"task-due-date"}
+                            <span className={"editable-span"}
                                   onClick={openEditDueDate}>{TaskUtilService.getLocalDateByIsoDate(task.dueDate)}</span>}
                     </div>
                 </div>
                 <div className={"details-item"}>
-                    <div className={"details-item-name"}>Оценка</div>
-                    <div className={"details-item-value"}>{TaskUtilService.getEstimation(task.estimation)}</div>
+                    <div className={"details-item-name"}>Оценка (в днях)</div>
+                    <div className={"details-item-value"}>
+                        {isEditEstimation &&
+                            <div>
+                                <input type={"text"}
+                                       autoFocus={true}
+                                       defaultValue={task.estimation}
+                                       onBlur={closeEditEstimation}/>
+                            </div>}
+                        {!isEditEstimation &&
+                            <span className={"editable-span"}
+                                  onClick={openEditEstimation}>
+                                {TaskUtilService.getEstimation(task.estimation)}
+                            </span>}
+                    </div>
                 </div>
                 <div className={"details-item"}>
                     <div className={"details-item-name"}>Дата создания задачи</div>

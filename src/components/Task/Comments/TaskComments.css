@@ -1,0 +1,86 @@
+.generic-container .task-card .task-comments {
+    margin: 30px 0 20px 0;
+}
+
+.generic-container .task-card .task-comments .task-comments-header {
+    display: flex;
+    grid-column-gap: 20px;
+    align-items: center;
+    justify-items: center;
+}
+
+.generic-container .task-card .task-comments .task-comments-header .task-comment-add {
+    font-size: 15px;
+    color: #0066cc;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    grid-column-gap: 3px;
+}
+
+.generic-container .task-card .task-comments .task-comments-header .task-comment-add svg {
+    height: 16px;
+    width: 16px;
+    fill: #0066cc;
+}
+
+.generic-container .task-card .task-comments .task-comments-header .task-comment-add:hover {
+    color: #0d42ff;
+    cursor: pointer;
+}
+
+.generic-container .task-card .task-comments .task-comments-header .task-comment-add:hover svg {
+    fill: #0d42ff;
+}
+
+.generic-container .task-card .task-comments h3 {
+    margin: 10px 0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.generic-container .task-card .task-comments .task-comments-empty {
+    font-size: 16px;
+    color: #606060;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    padding: 30px 0;
+    border: 1px dashed #dcdcdc;
+}
+
+.generic-container .task-card .task-comments .task-comments-item {
+    margin: 20px 0;
+    padding: 10px 5px;
+    border-bottom: 1px dashed #dcdcdc;
+}
+
+.generic-container .task-card .task-comments .task-comments-item .task-comment-menu {
+    display: flex;
+    grid-column-gap: 10px;
+    font-size: 14px;
+    margin: 10px 0 0 0;
+}
+
+.generic-container .task-card .task-comments .task-comments-item .task-comment-menu .task-comment-author {
+    color: #505050;
+}
+
+.generic-container .task-card .task-comments .task-comments-item .task-comment-menu .task-comment-edit,
+.generic-container .task-card .task-comments .task-comments-item .task-comment-menu .task-comment-delete {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.generic-container .task-card .task-comments .task-comments-item:hover .task-comment-edit,
+.generic-container .task-card .task-comments .task-comments-item:hover .task-comment-delete {
+    visibility: visible;
+    opacity: 1;
+    transition: 0.3s;
+}
+
+.generic-container .task-card .task-comments .task-comment-add-form {
+    margin: 20px 0 0 0;
+}

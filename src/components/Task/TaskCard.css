@@ -10,6 +10,7 @@
     padding: 20px 0;
     font-size: 20px;
     font-weight: 400;
+    flex: 1;
 }
 
 .generic-container .task-card a:link {
@@ -91,7 +92,7 @@
     padding: 3px;
 }
 
-.generic-container .task-card .task-param .task-param-value:hover {
+.generic-container .task-card .task-param .task-param-value.editable-value:hover {
     border: 1px solid #dcdcdc;
     border-right: 3px solid #0066cc;
     cursor: text;
@@ -108,7 +109,7 @@
     margin: 0 0 10px 0;
     padding: 0;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .generic-container .task-card .task-explanation .task-explanation-block {
@@ -166,14 +167,15 @@
     text-align: center;
 }
 
-.generic-container .task-card .details-block .details-item .task-due-date {
+.generic-container .task-card .details-block .details-item .editable-span {
     width: 100%;
     display: block;
     cursor: text;
     border: 1px solid transparent;
+    transition: 0.2s;
 }
 
-.generic-container .task-card .details-block .details-item .task-due-date:hover {
+.generic-container .task-card .details-block .details-item .editable-span:hover {
     border: 1px solid #dcdcdc;
     border-right: 3px solid #0066cc;
     cursor: text;

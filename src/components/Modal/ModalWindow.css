@@ -1,0 +1,43 @@
+.modal-window-background {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-window-visible {
+    display: block;
+}
+
+.modal-window-layout {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-window {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.6);
+}
+
+.modal-window .modal-window-header {
+    padding: 10px 20px;
+    margin: 0;
+    font-size: 18px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.modal-window .modal-window-question {
+    padding: 10px 20px;
+}
+
+.modal-window .modal-window-buttons {
+    display: flex;
+    grid-column-gap: 5px;
+    padding: 10px 20px;
+    justify-content: flex-end;
+}

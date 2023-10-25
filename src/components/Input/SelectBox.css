@@ -26,12 +26,12 @@
 
 .select-box .select-box-layout {
     display: grid;
-    grid-template-columns: 1fr 30px;
+    grid-template-columns: 1fr 25px;
+    align-items: center;
 }
 
 .select-box .select-box-arrow {
     color: #909090;
-    padding: 5px;
 }
 
 .select-box .select-box-arrow svg {
@@ -39,6 +39,7 @@
     width: 15px;
     fill: #505050;
     transition: 0.3s;
+    display: block;
 }
 
 .select-box.select-box-open .select-box-arrow svg {
@@ -59,6 +60,9 @@
     border: 1px solid #dcdcdc;
     outline: 0;
     z-index: 10;
+    -webkit-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
 .select-box .select-box-options {

@@ -27,6 +27,19 @@ class ReferenceService {
             console.log("Cannot get task priorities, reason: " + error)
         }
     }
+
+    async getTaskLinkTypes() {
+        try {
+            let response = await ReferenceClient.getTaskLinkTypes()
+            let taskLinkTypes = [];
+            response.data.forEach((taskLinkType) => {
+                taskLinkTypes[taskLinkType.code] = taskLinkType.title;
+            })
+            return taskLinkTypes;
+        } catch (error) {
+            console.log("Cannot get task link types, reason: " + error)
+        }
+    }
 }
 
 export default new ReferenceService();
