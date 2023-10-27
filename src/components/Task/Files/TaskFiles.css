@@ -1,0 +1,145 @@
+.generic-container .task-card .task-files {
+    margin: 30px 0;
+}
+
+.generic-container .task-card .task-files .task-files-header {
+    display: flex;
+    grid-column-gap: 20px;
+    align-items: center;
+    justify-items: center;
+}
+
+.generic-container .task-card .task-files .task-files-header .task-files-add {
+    font-size: 15px;
+    color: #0066cc;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    grid-column-gap: 3px;
+}
+
+.generic-container .task-card .task-files .task-files-header .task-files-add svg {
+    height: 16px;
+    width: 16px;
+    fill: #0066cc;
+}
+
+.generic-container .task-card .task-files .task-files-header .task-files-add:hover {
+    color: #0d42ff;
+    cursor: pointer;
+}
+
+.generic-container .task-card .task-files .task-files-header .task-files-add:hover svg {
+    fill: #0d42ff;
+}
+
+.generic-container .task-card .task-files h3 {
+    margin: 10px 0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.generic-container .task-card .task-files .task-files-input {
+    position: relative;
+    display: inline;
+}
+
+.generic-container .task-card .task-files .task-files-input input[type=file] {
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.generic-container .task-card .task-files .task-files-input .task-file-add-button {
+    border: 1px dashed #0066cc;
+    color: #0066cc;
+    border-radius: 5px;
+    height: 85px;
+    width: 100%;
+    display: grid;
+    box-sizing: border-box;
+    justify-content: center;
+    align-content: center;
+}
+
+.generic-container .task-card .task-files .task-files-input .task-file-add-button:hover {
+    border: 1px dashed #0084ff;
+    color: #0084ff;
+    cursor: pointer;
+}
+
+.generic-container .task-card .task-files .task-files-list {
+    margin: 10px 0 0 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 15px;
+}
+
+.generic-container .task-card .task-files .task-files-list .task-file-item {
+    width: 100%;
+    height: 85px;
+    font-size: 14px;
+    position: relative;
+}
+
+.generic-container .task-card .task-files .task-files-list .file-grid {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+}
+
+.generic-container .task-card .task-files .task-files-list .task-file-file {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+}
+
+.generic-container .task-card .task-files .task-files-list .task-file-file:hover {
+    cursor: pointer;
+    color: #0084ff;
+}
+
+.generic-container .task-card .task-files .task-files-list .task-file-file svg {
+    height: 50px;
+    width: 50px;
+    fill: #0066cc;
+}
+
+.generic-container .task-card .task-files .task-files-list .task-file-file:hover svg {
+    fill: #0084ff;
+}
+
+.generic-container .task-card .task-files .task-file-item .task-file-delete {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+
+.generic-container .task-card .task-files .task-file-item:hover .task-file-delete svg {
+    opacity: 1;
+}
+
+.generic-container .task-card .task-files .task-file-item .task-file-delete svg {
+    fill: #505050;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    transition: 0.2s;
+    display: block;
+}
+
+.generic-container .task-card .task-files .task-file-item .task-file-delete svg:hover {
+    fill: #0084ff;
+    cursor: pointer;
+}
+
+.generic-container .task-card .task-files .task-file-item .task-file-picture {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}

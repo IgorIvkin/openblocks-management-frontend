@@ -4,7 +4,6 @@ import TaskClient from "../../../clients/TaskClient";
 import ReferenceService from "../../../service/ReferenceService";
 import SelectBox from "../../Input/SelectBox";
 import TaskAutocomplete from "./TaskAutocomplete";
-import TaskComment from "../Comments/TaskComment";
 import TaskLink from "./TaskLink";
 
 function TaskLinks({taskCode}) {
@@ -75,6 +74,7 @@ function TaskLinks({taskCode}) {
                     {taskLinks.map((taskLink, i) => {
                         return (
                             <TaskLink taskCode={taskCode}
+                                      key={taskLink?.id}
                                       link={taskLink}
                                       taskLinkTypes={taskLinkTypes}
                                       onDelete={onDeleteTaskLink} />

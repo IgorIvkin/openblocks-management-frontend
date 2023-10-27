@@ -15,6 +15,7 @@ import TaskExplanation from "./TaskExplanation";
 import TaskComments from "./Comments/TaskComments";
 import TaskLinks from "./TaskLink/TaskLinks";
 import TaskSprint from "./TaskSprint";
+import TaskFiles from "./Files/TaskFiles";
 
 function TaskCard() {
 
@@ -321,6 +322,8 @@ function TaskCard() {
                 </div>
 
                 <TaskLinks taskCode={taskCode} />
+
+                <TaskFiles taskCode={taskCode} />
 
                 <TaskComments taskCode={taskCode} />
 

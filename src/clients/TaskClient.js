@@ -95,6 +95,43 @@ class TaskClient {
     async deleteTaskLink(id) {
         return restTemplate.delete("/api/v1/task-links/" + id);
     }
+
+    async getTaskFiles(taskCode) {
+        return restTemplate.get("/api/v1/task-files/" + taskCode);
+    }
+
+    async addTaskFile(taskCode, fileInput) {
+        let formData = new FormData();
+        formData.append("file", fileInput.files[0]);
+        return restTemplate.post('/api/v1/task-files/' + taskCode, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    }
+
+    async deleteTaskFile(taskCode, fileId) {
+        return restTemplate.delete("/api/v1/task-files/" + taskCode + "/" + fileId);
+    }
+
+    async getFile(fileId) {
+        return restTemplate.get("/api/v1/task-files/file/" + fileId, {
+            responseType: 'blob'
+        });
+    }
+
+    async downloadFile(fileId, fileName) {
+        restTemplate.get("/api/v1/task-files/file/" + fileId, {
+            responseType: 'blob'
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", fileName);
+            link.click();
+            setTimeout(() => window.URL.revokeObjectURL(url), 0);
+        });
+    }
 }
 
 export default new TaskClient();

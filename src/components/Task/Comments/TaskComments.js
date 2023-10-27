@@ -61,6 +61,7 @@ function TaskComments({taskCode}) {
                 {comments.map((comment, i) => {
                     return (
                         <TaskComment comment={comment}
+                                     key={comment?.id}
                                      onDelete={onDeleteComment} />
                     );
                 })}
