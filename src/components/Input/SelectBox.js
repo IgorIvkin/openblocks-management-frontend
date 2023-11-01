@@ -1,7 +1,7 @@
 import './SelectBox.css'
 import React, {useEffect, useState, useRef} from "react";
 
-function SelectBox({values, selectedKey, name, onChange, autoFocus}) {
+function SelectBox({values, selectedKey, name, onChange, autoFocus, overflow, classes}) {
 
     const [currentSelectedKey, setCurrentSelectedKey] = useState(selectedKey);
     const [isOpen, setIsOpen] = useState(false);
@@ -69,10 +69,10 @@ function SelectBox({values, selectedKey, name, onChange, autoFocus}) {
     }
 
     function getSelectedValue() {
-        if (currentSelectedKey) {
+        if (currentSelectedKey && values[currentSelectedKey]) {
             return values[currentSelectedKey];
         } else {
-            return values[0]
+            return values[Object.keys(values)[0]];
         }
     }
 
@@ -84,11 +84,21 @@ function SelectBox({values, selectedKey, name, onChange, autoFocus}) {
         }
     }
 
+    function getAdditionalClasses() {
+        return classes;
+    }
+
+    function getOverflowClass() {
+        if (overflow) {
+            return "select-box-value-overflow";
+        }
+    }
+
     const wrapperRef = useRef(null);
     useOutsideAutoCloseable(wrapperRef);
 
     return (
-        <div className={"select-box " + getSelectBoxOpenClass()}
+        <div className={"select-box " + getSelectBoxOpenClass() + " " + getAdditionalClasses()}
              onClick={onSelectBoxClick}
              ref={wrapperRef}>
             <input type={"hidden"}
@@ -96,7 +106,7 @@ function SelectBox({values, selectedKey, name, onChange, autoFocus}) {
                    id={name}
                    value={currentSelectedKey} />
             <div className={"select-box-layout"}>
-                <div className={"select-box-value"}>
+                <div className={"select-box-value " + getOverflowClass()}>
                     {getSelectedValue()}
                 </div>
                 <div className={"select-box-arrow"}>

@@ -36,7 +36,7 @@ function BacklogTask({index, taskCode, type, status, estimation, priority, subje
                     </div>
                     <div className={"task-status"}><TaskStatus status={status} /></div>
                     <div className={"task-estimation"}>{TaskUtilService.getEstimation(estimation)}</div>
-                    <div className={"task-due-date"}>{dueDate ? dueDate : '-'}</div>
+                    <div className={"task-due-date"}>{TaskUtilService.getLocalDateByIsoDate(dueDate)}</div>
                     <div className={"task-executor"} title={executor.name}>
                         {executor.name &&
                             <span className={"existing-user"}>{executor.shortName}</span>}

@@ -1,9 +1,10 @@
 import './Autocomplete.css'
 import React, {useEffect, useState} from "react";
 
-function Autocomplete({id, autocompleteSource, autoCompleteLayout, onChange, placeholder}) {
+function Autocomplete({id, autocompleteSource, autoCompleteLayout, autoFocus, onChange, placeholder}) {
 
     const [layoutItems, setLayoutItems] = useState([]);
+    const [autocompleteValue, setAutocompleteValue] = useState('');
 
     let typingTimeout = null;
 
@@ -18,17 +19,18 @@ function Autocomplete({id, autocompleteSource, autoCompleteLayout, onChange, pla
     function onClickAutocompleteItem(item) {
         setLayoutItems([]);
         if (onChange) {
-            onChange(item);
+            onChange(item, setAutocompleteValue);
         }
     }
 
     function innerOnChange(event) {
+        let value = event.target.value;
+        setAutocompleteValue(value);
+
         if (typingTimeout) {
             clearTimeout(typingTimeout)
         }
         typingTimeout = setTimeout(async () => {
-            let value = event.target.value;
-
             if (autocompleteSource) {
                 try {
                     let autocompleteItems = [];
@@ -60,8 +62,9 @@ function Autocomplete({id, autocompleteSource, autoCompleteLayout, onChange, pla
             <input type={"text"}
                    id={id}
                    name={id}
+                   value={autocompleteValue}
                    autoComplete={"off"}
-                   autoFocus={true}
+                   autoFocus={autoFocus ? autoFocus : false}
                    placeholder={placeholder}
                    onBlur={onBlurAutocomplete}
                    onChange={innerOnChange} />

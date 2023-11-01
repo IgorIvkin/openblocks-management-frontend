@@ -1,10 +1,12 @@
 import './TaskFiles.css';
 import React, {useEffect, useState} from "react";
 import TaskClient from "../../../clients/TaskClient";
+import ModalWindow from "../../Modal/ModalWindow";
 
 function TaskFile({file, onDelete, onDownload}) {
 
     let [image, setImage] = useState('');
+    let [isDeleteModal, setIsDeleteModal] = useState(false);
 
     useEffect(() => {
         console.log(file);
@@ -12,9 +14,7 @@ function TaskFile({file, onDelete, onDownload}) {
     }, []);
 
     function onClickDeleteFile() {
-        if (onDelete) {
-            onDelete(file);
-        }
+        setIsDeleteModal(true);
     }
 
     function onClickDownloadFile() {
@@ -37,6 +37,19 @@ function TaskFile({file, onDelete, onDownload}) {
 
     return (
         <div className={"task-file-item file-grid"}>
+            {isDeleteModal &&
+                <ModalWindow header={"Удаление файла"}
+                             okButtonLabel={"Удалить"}
+                             visible={true}
+                             setIsDeleteModal={setIsDeleteModal}
+                             onClickOk={async () => {
+                                 if (onDelete) {
+                                     onDelete(file);
+                                 }
+                                 setIsDeleteModal(false);
+                             }}>
+                    <div className={"modal-window-question"}>Вы уверены, что хотите удалить файл?</div>
+                </ModalWindow>}
             <div className={"task-file-delete"}
                  onClick={onClickDeleteFile}>
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

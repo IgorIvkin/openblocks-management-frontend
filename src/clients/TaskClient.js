@@ -3,7 +3,15 @@ import {restTemplate} from "../config/axiosConfig";
 class TaskClient {
 
     async getTask(taskCode) {
-        return restTemplate.get("/api/v1/tasks/" + taskCode)
+        return restTemplate.get("/api/v1/tasks/" + taskCode);
+    }
+
+    async cloneTask(taskCode) {
+        return restTemplate.get("/api/v1/tasks/" + taskCode + "/clone");
+    }
+
+    async createTask(projectCode, taskData){
+        return restTemplate.post("/api/v1/tasks/" + projectCode, taskData);
     }
 
     async updateTaskStatus(taskCode, status) {

@@ -31,9 +31,41 @@
     border-bottom: 1px solid #0066cc;
 }
 
-.generic-container .task-card .task-breadcrumbs {
-    font-size: 14px;
+.generic-container .task-card .task-top-buttons {
     margin: 20px 0 0 0;
+    display: flex;
+    grid-column-gap: 20px;
+    align-items: center;
+    align-content: center;
+    font-size: 14px;
+}
+
+.generic-container .task-card .task-top-buttons .task-top-button {
+    display: grid;
+    grid-template-columns: 15px 1fr;
+    align-items: center;
+    grid-column-gap: 5px;
+}
+
+.generic-container .task-card .task-top-buttons .task-top-button-clone svg {
+    display: block;
+    width: 15px;
+    height: 15px;
+    stroke: #000000;
+    fill: none;
+}
+
+.generic-container .task-card .task-top-buttons .task-top-button-clone:hover svg {
+    stroke: #0d42ff;
+    fill: #0d42ff !important;
+}
+
+.generic-container .task-card .task-top-buttons .task-top-button:hover {
+    cursor: pointer;
+    color: #0d42ff;
+}
+
+.generic-container .task-card .task-breadcrumbs {
 }
 
 .generic-container .task-card .task-header {

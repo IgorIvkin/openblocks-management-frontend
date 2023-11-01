@@ -4,7 +4,7 @@ import './ManagementFooter.css'
 function ManagementFooter() {
     return (
         <div className={"generic-footer"}>
-            Footer here
+            Openblocks Управление &copy;2023
         </div>
     );
 }

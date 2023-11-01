@@ -16,6 +16,7 @@ import TaskComments from "./Comments/TaskComments";
 import TaskLinks from "./TaskLink/TaskLinks";
 import TaskSprint from "./TaskSprint";
 import TaskFiles from "./Files/TaskFiles";
+import TaskTopButtons from "./TaskTopButtons";
 
 function TaskCard() {
 
@@ -229,9 +230,9 @@ function TaskCard() {
     return (
         <div className={"task-card"}>
             <div className={"main-block"}>
-                <div className={"task-breadcrumbs"}>
-                    <a href={"/backlog"}>Все задачи по {task?.project?.title}</a>
-                </div>
+
+                <TaskTopButtons taskCode={taskCode} task={task} />
+
                 <div className={"task-header"}>
                     <div className={"task-type"}>
                         <TaskType type={task.taskType}/>
@@ -343,6 +344,7 @@ function TaskCard() {
                             </div>}
                         {isEditOwner &&
                             <UserAutocomplete id={"owner-autocomplete"}
+                                              autoFocus={true}
                                               onChange={closeEditOwner}/>}
                     </div>
                 </div>
@@ -360,6 +362,7 @@ function TaskCard() {
                             </div>}
                         {isEditExecutor &&
                             <UserAutocomplete id={"executor-autocomplete"}
+                                              autoFocus={true}
                                               onChange={closeEditExecutor}/>}
                     </div>
                 </div>
@@ -369,6 +372,8 @@ function TaskCard() {
                         {isEditDueDate &&
                             <Datepicker id={"due-date-datepicker"}
                                         selectedDate={task.dueDate}
+                                        autoFocus={true}
+                                        autoOpen={true}
                                         onChange={closeEditDueDate}/>}
                         {!isEditDueDate &&
                             <span className={"editable-span"}

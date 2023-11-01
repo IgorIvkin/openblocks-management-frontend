@@ -1,5 +1,6 @@
 .select-box {
     width: 100%;
+    background-color: #ffffff;
     box-sizing: border-box;
     font-family: 'Segoe UI', serif;
     font-size: 16px;
@@ -46,8 +47,18 @@
     transform: rotate(180deg);
 }
 
+.select-box.input-error .select-box-arrow svg {
+    fill: #cc0000;
+}
+
 .select-box .select-box-value {
     padding: 5px 10px;
+}
+
+.select-box .select-box-value-overflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .select-box.select-box-open .select-box-options {

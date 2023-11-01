@@ -15,6 +15,13 @@ class TaskUtilService {
         return "-"
     }
 
+    getIsoDateByLocalDate(date) {
+        if (date) {
+            return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        }
+        return null;
+    }
+
     getLocalDateByIsoDate(isoDate) {
         if (isoDate) {
             let date = new Date(isoDate);

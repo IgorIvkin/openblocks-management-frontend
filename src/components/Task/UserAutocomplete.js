@@ -2,10 +2,12 @@ import React from "react";
 import Autocomplete from "../Input/Autocomplete";
 import UserClient from "../../clients/UserClient";
 
-function UserAutocomplete({id, onChange}) {
+function UserAutocomplete({id, autoFocus, onChange}) {
     return (
         <div>
             <Autocomplete id={id}
+                          placeholder={"Введите ФИО пользователя"}
+                          autoFocus={autoFocus}
                           onChange={onChange}
                           autocompleteSource={(query) => {
                               return UserClient.searchUsers(query);

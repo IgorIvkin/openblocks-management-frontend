@@ -3,7 +3,7 @@ import './Datepicker.css';
 import React, {useEffect} from "react";
 import datepicker from 'js-datepicker';
 
-function Datepicker({id, selectedDate, onChange}) {
+function Datepicker({id, rangeId, selectedDate, onChange, autoFocus, autoOpen}) {
 
     let picker = null;
 
@@ -30,14 +30,18 @@ function Datepicker({id, selectedDate, onChange}) {
                 startDay: 1,
                 customDays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
                 customMonths: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                id: rangeId ? rangeId : 1
             });
-            picker.show();
+            if (autoOpen) {
+                picker.show();
+            }
         }
     }, []);
 
     return (
         <input type={"text"}
-               autoFocus={true}
+               autoComplete={"off"}
+               autoFocus={autoFocus ? autoFocus : false}
                id={id}></input>
     );
 }

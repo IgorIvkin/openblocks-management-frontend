@@ -33,6 +33,7 @@
 
 .modal-window .modal-window-question {
     padding: 10px 20px;
+    max-width: 400px;
 }
 
 .modal-window .modal-window-buttons {

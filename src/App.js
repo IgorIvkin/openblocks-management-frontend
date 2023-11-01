@@ -9,6 +9,8 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {observer} from 'mobx-react-lite'
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import TaskCard from "./components/Task/TaskCard";
+import AddTaskForm from "./components/Task/Add/AddTaskForm";
+import DetailedSearch from "./components/Search/DetailedSearch";
 
 const App = observer(() => {
 
@@ -24,6 +26,10 @@ const App = observer(() => {
                         <Route path="backlog/:projectCode" element={<Backlog />} />
                         <Route path="projects" element={<ProjectList />} />
                         <Route path="tasks/view/:taskCode" element={<TaskCard />} />
+                        <Route path="add-task" element={<AddTaskForm />} />
+                        <Route path="add-task/:projectCode" element={<AddTaskForm />} />
+                        <Route path="search" element={<DetailedSearch />} />
+                        <Route path="search/:projectCode" element={<DetailedSearch />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

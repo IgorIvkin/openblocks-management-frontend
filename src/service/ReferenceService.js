@@ -28,6 +28,19 @@ class ReferenceService {
         }
     }
 
+    async getTypes() {
+        try {
+            let response = await ReferenceClient.getTypes()
+            let types = [];
+            response.data.forEach((type) => {
+                types[type.code] = type.title;
+            })
+            return types;
+        } catch (error) {
+            console.log("Cannot get task types, reason: " + error)
+        }
+    }
+
     async getTaskLinkTypes() {
         try {
             let response = await ReferenceClient.getTaskLinkTypes()

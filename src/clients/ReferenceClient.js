@@ -13,6 +13,10 @@ class ReferenceClient {
     async getTaskLinkTypes() {
         return restTemplate.get("/api/v1/references/task-link-types")
     }
+
+    async getTypes() {
+        return restTemplate.get("/api/v1/references/types")
+    }
 }
 
 export default new ReferenceClient();

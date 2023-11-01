@@ -13,7 +13,7 @@ function ManagementHeader() {
                     <a href={"/"}>Бэклог</a>
                 </div>
                 <div className={"item"}>
-                    <a href={"/board"}>Доски</a>
+                    <a href={"/search"}>Поиск</a>
                 </div>
                 <div className={"item"}>
                     <a href={"/projects"}>Проекты</a>
