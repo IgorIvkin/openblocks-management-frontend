@@ -1,0 +1,40 @@
+.error-toast {
+    position: absolute;
+    z-index: 30;
+    background-color: #F1B4BB;
+    border: 1px solid #FF6969;
+    border-radius: 5px;
+    top: 5%;
+    right: 5%;
+    box-shadow: 0px 4px 8px 0px rgba(241, 180, 187, 0.9);
+    max-width: 20%;
+}
+
+.error-toast .error-toast-message {
+    padding: 10px 25px 25px 25px;
+}
+
+.error-toast .error-toast-message h2 {
+    margin: 10px 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.error-toast  .close-error-toast svg {
+    width: 25px;
+    height: 25px;
+    fill: #505050;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+
+.error-toast  .close-error-toast svg:hover {
+    cursor: pointer;
+    fill: #707070;
+}
+
+.error-toast .error-toast-explanation {
+    margin: 5px 0;
+}

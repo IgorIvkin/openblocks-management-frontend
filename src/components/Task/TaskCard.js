@@ -1,6 +1,7 @@
 import './TaskCard.css'
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
+import {observer} from "mobx-react-lite";
 import TaskClient from "../../clients/TaskClient";
 import SprintClient from "../../clients/SprintClient";
 import ReferenceService from "../../service/ReferenceService";
@@ -18,7 +19,7 @@ import TaskSprint from "./TaskSprint";
 import TaskFiles from "./Files/TaskFiles";
 import TaskTopButtons from "./TaskTopButtons";
 
-function TaskCard() {
+const TaskCard = observer(({errorStore}) => {
 
     const {taskCode} = useParams();
     let [task, setTask] = useState({});
@@ -42,18 +43,22 @@ function TaskCard() {
             setTask(response.data);
             await getSprints(response.data?.project?.code);
         } catch (error) {
-            console.log("Cannot get task, reason: " + error)
+            handleTaskError(error, "Не получилось загрузить данные по задаче " + taskCode)
         }
     }
 
     async function getStatuses() {
         let statuses = await ReferenceService.getStatuses();
-        setStatuses(statuses);
+        if (statuses) {
+            setStatuses(statuses);
+        }
     }
 
     async function getPriorities() {
         let priorities = await ReferenceService.getPriorities();
-        setPriorities(priorities);
+        if (priorities) {
+            setPriorities(priorities);
+        }
     }
 
     async function getSprints(projectCode) {
@@ -221,10 +226,24 @@ function TaskCard() {
         }
     }
 
+    function handleTaskError(error, strErrorMessage) {
+        let techDetails;
+        if (error.response) {
+            techDetails = '[' + error.response.data.errorCode + '] ' + error.response.data.message;
+        } else {
+            techDetails = error.message;
+        }
+        errorStore.setError({
+            message: strErrorMessage,
+            techDetails: techDetails,
+            errorObject: error
+        });
+    }
+
     useEffect(() => {
-        getTask()
-        getStatuses()
-        getPriorities()
+        getTask();
+        getStatuses();
+        getPriorities();
     }, []);
 
     return (
@@ -410,7 +429,6 @@ function TaskCard() {
             </div>
         </div>
     );
-
-}
+});
 
 export default TaskCard;
