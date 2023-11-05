@@ -36,8 +36,8 @@ function ProjectList() {
 
             {projects
                 .filter((project) => {
-                    if (projectTitle !== '') {
-                        return project.code.startsWith(projectTitle)
+                    if (projectTitle && projectTitle !== '') {
+                        return project.code?.toLowerCase().startsWith(projectTitle?.toLowerCase())
                     } else {
                         return true;
                     }

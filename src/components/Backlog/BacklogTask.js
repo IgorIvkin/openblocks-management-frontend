@@ -9,7 +9,7 @@ import TaskStatus from "./TaskStatus";
 function BacklogTask({index, taskCode, type, status, estimation, priority, subject, dueDate, executor}) {
 
     function addStatusClass() {
-        if (status === "CLOSED") {
+        if (status === "CLOSED" || status === "REJECTED") {
             return "task-closed";
         }
         return "";

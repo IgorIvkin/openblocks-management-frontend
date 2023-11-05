@@ -18,6 +18,15 @@
     font-size: 16px;
     display: flex;
     grid-column-gap: 30px;
+    border-bottom: 2px solid transparent;
+}
+
+.generic-header .menu .item {
+    border-bottom: 2px solid transparent;
+}
+
+.generic-header .menu .selected-item {
+    border-bottom: 2px solid #0066cc;
 }
 
 .generic-header a:link {

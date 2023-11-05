@@ -5,7 +5,7 @@ import ManagementFooter from "./components/ManagementFooter/ManagementFooter";
 import LoginForm from "./components/LoginForm/LoginForm";
 import Backlog from "./components/Backlog/Backlog";
 import ProjectList from "./components/ProjectList/ProjectList";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import {observer} from 'mobx-react-lite'
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import TaskCard from "./components/Task/TaskCard";
@@ -19,8 +19,8 @@ const App = observer(() => {
     return (
         <div className={"generic-container"}>
             <ErrorContext errorStore={errorStore}>
-                <ManagementHeader/>
                 <BrowserRouter>
+                    <ManagementHeader/>
                     <Routes>
                         <Route path="/login" element={<LoginForm/>}/>
                         <Route path="/" element={<PrivateRoute/>}>

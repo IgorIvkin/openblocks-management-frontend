@@ -104,23 +104,6 @@ function DetailedSearch() {
         }
     }
 
-    function onDragEnd(result) {
-        const {destination, source, draggableId} = result;
-
-        if (!destination) {
-            return;
-        }
-
-        if (destination.droppableId === source.droppableId
-            && destination.index === source.index) {
-            return;
-        }
-
-        let sourceItem = tasks[source.index];
-        tasks.splice(source.index, 1);
-        tasks.splice(destination.index, 0, sourceItem);
-    }
-
     async function onClickSearch() {
         if (filterProjectCode && filterProjectCode !== "-") {
             let backlogResponse = await BacklogClient.getBacklog({
@@ -140,11 +123,20 @@ function DetailedSearch() {
         }
     }
 
+    async function initializeDetailedSearch() {
+        await Promise.all([
+            getAllProjects(),
+            getAllSprints(projectCode),
+            getStatuses(),
+            getTypes()
+        ]);
+        if (projectCode && projectCode !== '-') {
+            await onClickSearch();
+        }
+    }
+
     useEffect(() => {
-        getAllProjects();
-        getAllSprints();
-        getStatuses();
-        getTypes();
+        initializeDetailedSearch();
     }, []);
 
     return (
