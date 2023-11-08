@@ -13,6 +13,7 @@ import AddTaskForm from "./components/Task/Add/AddTaskForm";
 import DetailedSearch from "./components/Search/DetailedSearch";
 import ErrorContext from "./components/ErrorContext/ErrorContext";
 import errorStore from "./store/ErrorStore";
+import UserCard from "./components/Profile/UserCard";
 
 const App = observer(() => {
 
@@ -33,6 +34,9 @@ const App = observer(() => {
                             <Route path="add-task/:projectCode" element={<AddTaskForm/>}/>
                             <Route path="search" element={<DetailedSearch/>}/>
                             <Route path="search/:projectCode" element={<DetailedSearch/>}/>
+                            <Route path="profile" element={<UserCard activeTab={"profile"} />}/>
+                            <Route path="profile/password" element={<UserCard errorStore={errorStore}
+                                                                              activeTab={"password"} />}/>
                         </Route>
                     </Routes>
                 </BrowserRouter>

@@ -41,3 +41,24 @@
 .generic-header a:hover {
     color: #0d42ff;
 }
+
+.generic-header .user-title {
+    display: grid;
+    grid-template-columns: 25px 1fr;
+    align-items: center;
+    align-content: center;
+    grid-column-gap: 3px;
+}
+
+.generic-header .user-title svg {
+    height: 21px;
+    width: 21px;
+    stroke: #000000;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.generic-header .user-title:hover svg {
+    stroke: #0d42ff;
+}

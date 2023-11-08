@@ -1,0 +1,79 @@
+.generic-container .user-card {
+    margin: 24px 20px;
+    border-top: 1px solid #dcdcdc;
+}
+
+.generic-container .user-card .user-card-header h1 {
+    margin: 0px;
+    padding: 20px 0;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.generic-container .user-card .user-card-common {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-column-gap: 50px;
+}
+
+.generic-container .user-card .user-card-common .user-card-menu {
+    background-color: #ffffff;
+}
+
+.generic-container .user-card .user-card-common .user-card-menu .user-card-menu-item.active-tab {
+    background-color: #eaeaea;
+}
+
+.generic-container .user-card .user-card-common .user-card-menu .user-card-menu-item a {
+    display: block;
+    box-sizing: border-box;
+    padding: 10px 15px;
+}
+
+.generic-container .user-card .user-card-common .user-card-menu .user-card-menu-item a:link,
+.generic-container .user-card .user-card-common .user-card-menu .user-card-menu-item a:visited {
+    text-decoration: none;
+    color: #303030;
+}
+
+.generic-container .user-card .user-card-common .user-card-menu .user-card-menu-item a:hover {
+    color: #0d42ff;
+}
+
+.generic-container .user-card .user-card-common .user-card-profile-items {
+}
+
+.generic-container .user-card .user-card-common .user-card-profile-items .user-card-profile-item {
+    margin: 0 0 10px 0;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-column-gap: 10px;
+    align-items: center;
+    align-content: center;
+}
+
+.generic-container .user-card .user-card-common .user-card-profile-items .user-card-profile-item .profile-item-name {
+    font-size: 14px;
+    color: #505050;
+}
+
+.generic-container .user-card .user-card-common .user-card-profile-items .user-card-profile-item .profile-item-value {
+    border: 1px solid transparent;
+}
+
+.generic-container .user-card .user-card-common .user-card-profile-items .user-card-profile-item .profile-item-editable:hover {
+    border: 1px solid #dcdcdc;
+    border-right: 3px solid #0066cc;
+    cursor: text;
+}
+
+.generic-container .user-card .user-card-common .user-card-password-item {
+    margin: 10px 0;
+}
+
+.generic-container .user-card .user-card-common .user-card-password .item-success {
+    border: 1px solid #96C291;
+    border-radius: 5px;
+    background-color: #a7dca2;
+    padding: 10px 15px;
+}
