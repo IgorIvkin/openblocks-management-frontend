@@ -1,6 +1,6 @@
 class ErrorUtilService {
 
-    handleGenericError(errorStore, error, strErrorMessage) {
+    handleGenericApiError(errorStore, error, strErrorMessage) {
         let techDetails;
         if (error.response) {
             techDetails = '[' + error.response.data.errorCode + '] ' + error.response.data.message;

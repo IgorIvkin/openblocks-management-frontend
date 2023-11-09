@@ -28,7 +28,7 @@ const App = observer(() => {
                             <Route path="" element={<Backlog/>}/>
                             <Route path="backlog" element={<Backlog/>}/>
                             <Route path="backlog/:projectCode" element={<Backlog/>}/>
-                            <Route path="projects" element={<ProjectList/>}/>
+                            <Route path="projects" element={<ProjectList errorStore={errorStore} />}/>
                             <Route path="tasks/view/:taskCode" element={<TaskCard errorStore={errorStore} />}/>
                             <Route path="add-task" element={<AddTaskForm/>}/>
                             <Route path="add-task/:projectCode" element={<AddTaskForm/>}/>

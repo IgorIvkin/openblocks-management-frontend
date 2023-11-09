@@ -40,7 +40,7 @@ function UserProfilePassword({userCard, errorStore}) {
                 await UserClient.updatePassword(userCard.id, oldPassword, newPassword, newPasswordRepeat);
                 setPasswordUpdated(true);
             } catch (error) {
-                ErrorUtilService.handleGenericError(errorStore, error, "Не удалось обновить пароль");
+                ErrorUtilService.handleGenericApiError(errorStore, error, "Не удалось обновить пароль");
             }
         }
     }

@@ -10,6 +10,10 @@ class UserClient {
         return restTemplate.get("/api/v1/users/current");
     }
 
+    async getCurrentRoles() {
+        return restTemplate.get("/api/v1/users/current-roles");
+    }
+
     async updateUserName(userId, name) {
         return restTemplate.put("/api/v1/users/" + userId + "/name", {
             name: name

@@ -2,16 +2,39 @@ import './ProjectList.css'
 import React, {useEffect, useState} from "react";
 import ProjectListItem from "./ProjectListItem";
 import ProjectClient from "../../clients/ProjectClient";
+import UserClient from "../../clients/UserClient";
+import AddProjectModal from "./AddProjectModal";
 
-function ProjectList() {
+function ProjectList({errorStore}) {
 
     let [projects, setProjects] = useState([])
     let [projectTitle, setProjectTitle] = useState("")
+    let [currentRoles, setCurrentRoles] = useState([]);
 
     async function getAllProjects() {
-        let response = await ProjectClient.getAllProjects()
-        let allProjects = response.data
-        setProjects(allProjects)
+        let response = await ProjectClient.getAllProjects();
+        let allProjects = response.data;
+        setProjects(allProjects);
+    }
+
+    async function getUserRoles() {
+        let response = await UserClient.getCurrentRoles();
+        setCurrentRoles(response.data);
+    }
+
+    function isAdmin() {
+        if (currentRoles) {
+            for (let currentRole of currentRoles) {
+                if (currentRole?.code === "ADMINISTRATOR") {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    async function onAddNewProject() {
+        await getAllProjects();
     }
 
     const onProjectTitleChange = (event) => {
@@ -20,12 +43,18 @@ function ProjectList() {
     };
 
     useEffect(() => {
-        getAllProjects()
+        getAllProjects();
+        getUserRoles();
     }, []);
 
     return (
         <div className={"project-list"}>
-            <h1>Проектные области</h1>
+            <div className={"project-list-header"}>
+                <h1>Проектные области</h1>
+                {isAdmin() &&
+                    <AddProjectModal errorStore={errorStore}
+                                     onAddNewProject={onAddNewProject} />}
+            </div>
 
             <div className={"filters"}>
                 <input type={"text"}
@@ -43,11 +72,11 @@ function ProjectList() {
                     }
                 })
                 .map((project, i) => {
-                return (
-                    <ProjectListItem projectCode={project.code}
-                                     projectTitle={project.title} />
-                );
-            })}
+                    return (
+                        <ProjectListItem projectCode={project.code}
+                                         projectTitle={project.title}/>
+                    );
+                })}
         </div>
     );
 }

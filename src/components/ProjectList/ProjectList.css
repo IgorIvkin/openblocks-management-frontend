@@ -3,6 +3,14 @@
     border-top: 1px solid #dcdcdc;
 }
 
+.project-list .project-list-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 20px;
+    align-items: center;
+    align-content: center;
+}
+
 .project-list h1 {
     margin: 0px;
     padding: 20px 0;
@@ -38,4 +46,8 @@
 .project-list .filters {
     width: 100%;
     margin: 0px 0 20px 0;
+}
+
+.add-project-modal-item {
+    margin: 0 0 20px 0;
 }
