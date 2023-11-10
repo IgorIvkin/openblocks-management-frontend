@@ -1,0 +1,11 @@
+version: "2"
+services:
+  management-front:
+    container_name: management-front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      NODE_ENV: production

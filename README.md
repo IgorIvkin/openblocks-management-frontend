@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# Фронтенд для проекта "OpenBlocks Управление"
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Задача](docs/picture_task.png)
 
-## Available Scripts
+Приложение "Управление" &mdash; это система управления задачами и дефектами. В первую очередь она
+предназначена для пользователей, которые ведут разработку программного обеспечения, но подходит
+и для других сфер деятельности.
 
-In the project directory, you can run:
+![Список задач](docs/picture_project.png)
 
-### `npm start`
+## Как запустить
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Предварительные требования
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Для работы приложения потребуется backend в виде REST API, который реализуется в рамках родственного проекта
+[OpenBlocks Management](https://github.com/IgorIvkin/openblocks-management).
 
-### `npm test`
+Вы можете запустить приложение и без бэкенда, но практически все взаимодействия не будут работоспособными.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### Docker
+Наиболее простым способом запустить сервис является развертывание в **Docker**.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Вместе с сервисом поставляется простой `Dockerfile` и `docker-compose.yml`. Для запуска склонируйте себе
+репозиторий и запустите команду:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    docker-compose up -d
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Для запуска в Docker вам не потребуется иметь на компьютере Node.js и Nginx.
 
-### `npm run eject`
+После развертывания приложение будет доступно на вашем компьютере по адресу http://localhost.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Вы можете скорректировать порт, на котором будет работать приложение, для этого в файле `docker-compose.yml`
+измените первый порт в следующей секции на желаемый.
+```yaml
+ports:
+  - "80:80"
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Например, если вы укажете `"3000:80"`, то приложение будет доступно по адресу http://localhost:3000.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Ручной запуск в режиме разработки
+Запустите следующую команду
 
-## Learn More
+    npm run start
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Эта команда поднимает development-сервер с приложением. Оно будет доступно по адресу http://localhost:3000.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Ручной запуск с ручным развертыванием
+Вначале вам потребуется собрать приложение, для этого потребуется **Node.js** версии 18.
 
-### Code Splitting
+    npm run build
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+В результате сборки вы получите готовые статические файлы в папке `build`.
+Далее разместите эти файлы под управлением любого веб-сервера по вашему выбору,
+в качестве главной страницы требуется использовать `build/index.html`.
 
-### Analyzing the Bundle Size
+Также обратите внимание, что для корректной работы приложения требуется все неизвестные
+маршруты (к несуществующим файлам) также направлять на `build/index.html`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Например, для `nginx` это можно сделать с помощью следующих настроек.
 
-### Making a Progressive Web App
+```
+location / {
+    try_files $uri /index.html;
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Техническое описание
 
-### Advanced Configuration
+Сервис написан на языке программирования Javascript. Для сборки проекта потребуется
+**Node.js** LTS версии 18.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Используется фреймворк React.
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Системные требования
+| Требование       |        Версия         |
+|------------------|:---------------------:|
+| Node.js          |          18           |
+| Operating system | Windows, Linux, MacOS |
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Об инициативе OpenBlocks
+Инициатива OpenBlocks — это проекты с открытым исходным кодом. 
+Основная цель состоит в том, чтобы предоставить открытые и расширяемые решения для
+пользователей любого масштаба.
