@@ -18,6 +18,7 @@ import TaskLinks from "./TaskLink/TaskLinks";
 import TaskSprint from "./TaskSprint";
 import TaskFiles from "./Files/TaskFiles";
 import TaskTopButtons from "./TaskTopButtons";
+import TaskHistory from "./History/TaskHistory";
 
 const TaskCard = observer(({errorStore}) => {
 
@@ -346,6 +347,8 @@ const TaskCard = observer(({errorStore}) => {
                 <TaskFiles taskCode={taskCode} />
 
                 <TaskComments taskCode={taskCode} />
+
+                <TaskHistory taskCode={taskCode} />
 
             </div>
             <div className={"details-block"}>

@@ -140,6 +140,10 @@ class TaskClient {
             setTimeout(() => window.URL.revokeObjectURL(url), 0);
         });
     }
+
+    async getTaskHistory(taskCode) {
+        return restTemplate.get("/api/v1/task-history/" + taskCode);
+    }
 }
 
 export default new TaskClient();

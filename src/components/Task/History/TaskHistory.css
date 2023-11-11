@@ -1,0 +1,85 @@
+.generic-container .task-card .task-history {
+    margin: 30px 0;
+}
+
+.generic-container .task-card .task-history .task-history-header {
+    display: flex;
+    grid-column-gap: 20px;
+    align-items: center;
+    justify-items: center;
+}
+
+.generic-container .task-card .task-history .task-history-header .task-history-show {
+    font-size: 15px;
+    color: #0066cc;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    grid-column-gap: 3px;
+}
+
+.generic-container .task-card .task-history .task-history-header .task-history-show svg {
+    height: 16px;
+    width: 16px;
+    stroke: #0066cc;
+    fill: none;
+}
+
+.generic-container .task-card .task-history .task-history-header .task-history-show:hover {
+    color: #0d42ff;
+    cursor: pointer;
+}
+
+.generic-container .task-card .task-history .task-history-header .task-history-show:hover svg {
+    stroke: #0d42ff;
+}
+
+.generic-container .task-card .task-history h3 {
+    margin: 10px 0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.generic-container .task-history .task-history-items {
+    margin: 10px 0;
+}
+
+.generic-container .task-history .task-history-items .task-history-item {
+    margin: 0 0 25px 0;
+    padding: 0 0 10px 0;
+    display: grid;
+    border-bottom: 1px dashed #dcdcdc;
+}
+
+.generic-container .task-history .task-history-items .task-history-item .task-history-item-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 20px;
+    align-items: center;
+    align-content: center;
+    font-size: 14px;
+    color: #707070;
+}
+
+.generic-container .task-history .task-history-items .task-history-item .task-history-change-object {
+    margin: 5px 0 0 0;
+    font-weight: 600;
+}
+
+.generic-container .task-history .task-history-items .task-history-item .task-history-change {
+    margin: 5px 0 0 0;
+    display: grid;
+    grid-template-columns: 300px 30px 300px;
+    grid-column-gap: 10px;
+    align-items: center;
+    align-content: center;
+    font-size: 14px;
+}
+
+.generic-container .task-history .task-history-items .task-history-item .task-history-arrow {
+    color: #909090;
+}
+
+.generic-container .task-history .task-history-items .task-history-item .task-history-absent {
+    color: #acacac;
+}
