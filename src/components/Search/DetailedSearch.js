@@ -10,6 +10,7 @@ import UserAutocomplete from "../Task/UserAutocomplete";
 import Datepicker from "../Input/Datepicker";
 import TaskUtilService from "../../service/TaskUtilService";
 import DetailedSearchTask from "./DetailedSearchTask";
+import MultiSelectBox from "../Input/MultiSelectBox";
 
 function DetailedSearch() {
 
@@ -23,8 +24,8 @@ function DetailedSearch() {
 
     let [filterProjectCode, setFilterProjectCode] = useState(projectCode !== '' ? projectCode : "-");
     let [filterSprintId, setFilterSprintId] = useState("-");
-    let [filterStatus, setFilterStatus] = useState("-");
-    let [filterType, setFilterType] = useState("-");
+    let [filterStatus, setFilterStatus] = useState([]);
+    let [filterType, setFilterType] = useState([]);
     let [filterSubject, setFilterSubject] = useState("");
     let [filterExecutor, setFilterExecutor] = useState(null);
     let [filterOwner, setFilterOwner] = useState(null);
@@ -57,34 +58,33 @@ function DetailedSearch() {
 
     async function getStatuses() {
         let statuses = await ReferenceService.getStatuses();
-        statuses["-"] = "Все статусы";
         setStatuses(statuses);
     }
 
     async function getTypes() {
         let types = await ReferenceService.getTypes();
-        types["-"] = "Все типы";
         setTypes(types);
     }
 
     async function onChangeProjectFilter(code) {
         if (code !== '' && code !== filterProjectCode) {
             await getAllSprints(code);
+            setFilterProjectErrorStatus(false);
+            setFilterProjectCode(code);
+            setFilterSprintId("-");
         }
-        setFilterProjectErrorStatus(false);
-        setFilterProjectCode(code);
     }
 
     function onChangeSprintFilter(sprintId) {
         setFilterSprintId(sprintId);
     }
 
-    function onChangeStatusFilter(key) {
-        setFilterStatus(key);
+    function onChangeStatusFilter(keys) {
+        setFilterStatus(keys);
     }
 
-    function onChangeTypeFilter(key) {
-        setFilterType(key);
+    function onChangeTypeFilter(keys) {
+        setFilterType(keys);
     }
 
     function onChangeSubjectFilter(event) {
@@ -109,8 +109,8 @@ function DetailedSearch() {
             let backlogResponse = await BacklogClient.getBacklog({
                 projectCode: filterProjectCode && filterProjectCode !== "-" ? filterProjectCode : null,
                 sprints: filterSprintId && filterSprintId !== "-" ? [parseInt(filterSprintId)] : null,
-                taskTypes: filterType && filterType !== "-" ? [filterType] : null,
-                statuses: filterStatus && filterStatus !== "-" ? [filterStatus] : null,
+                taskTypes: filterType && filterType.length > 0 ? filterType : null,
+                statuses: filterStatus && filterStatus.length > 0 ? filterStatus : null,
                 subject: filterSubject !== "" ? filterSubject : null,
                 executorId: filterExecutor?.name ? filterExecutor?.id : null,
                 ownerId: filterOwner?.name ? filterOwner?.id : null,
@@ -166,20 +166,20 @@ function DetailedSearch() {
 
                     <div className={"detailed-search-type"}>
                         <label>Тип задачи</label>
-                        <SelectBox values={types}
-                                   overflow={true}
-                                   selectedKey={"-"}
-                                   name={"filter-types"}
-                                   onChange={onChangeTypeFilter}/>
+                        <MultiSelectBox values={types}
+                                        placeHolder={"Все типы"}
+                                        overflow={true}
+                                        name={"filter-statuses"}
+                                        onChange={onChangeTypeFilter} />
                     </div>
 
                     <div className={"detailed-search-sprint"}>
                         <label>Статус задачи</label>
-                        <SelectBox values={statuses}
-                                   overflow={true}
-                                   selectedKey={"-"}
-                                   name={"filter-statuses"}
-                                   onChange={onChangeStatusFilter}/>
+                        <MultiSelectBox values={statuses}
+                                        placeHolder={"Все статусы"}
+                                        overflow={true}
+                                        name={"filter-statuses"}
+                                        onChange={onChangeStatusFilter} />
                     </div>
 
                     <div className={"detailed-search-subject"}>

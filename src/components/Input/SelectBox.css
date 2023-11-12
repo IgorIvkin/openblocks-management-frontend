@@ -88,3 +88,36 @@
     background-color: #0066cc;
     color: #ffffff;
 }
+
+.select-box .select-box-options .select-box-multiselect-item {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    grid-column-gap: 6px;
+    align-items: center;
+    align-content: center;
+}
+
+.select-box .select-box-options .select-box-multiselect-item .select-box-multiselect-check {
+    display: block;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    width: 1em;
+    height: 1em;
+    box-sizing: border-box;
+}
+
+.select-box .select-box-options .select-box-multiselect-item .select-box-multiselect-check-selected {
+    border: 1px solid #0066cc;
+}
+
+.select-box .select-box-options .select-box-multiselect-item .select-box-multiselect-check-selected .select-box-checkmark {
+    display: block;
+    background-color: #007bff;
+    height: 100%;
+    width: 100%;
+    clip-path: polygon(17% 54%, 28% 43%, 38% 54%, 70% 22%, 81% 33%, 38% 75%, 17% 54%);
+}
+
+.select-box .select-box-options .select-box-multiselect-item .select-box-multiselect-value {
+    display: block;
+}
