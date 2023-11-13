@@ -28,10 +28,10 @@ function ModalWindow(props) {
                         {props.children}
                     </div>
                     <div className={"modal-window-buttons"}>
-                        <button className={"btn-add"}
-                                onClick={props.onClickOk}>{props.okButtonLabel}</button>
                         <button className={"btn-plain"}
                                 onClick={onClickCancel}>Отмена</button>
+                        <button className={"btn-add"}
+                                onClick={props.onClickOk}>{props.okButtonLabel}</button>
                     </div>
                 </div>
             </div>

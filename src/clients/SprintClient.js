@@ -9,6 +9,10 @@ class SprintClient {
     async getAllUnfinished(projectCode) {
         return restTemplate.get("/api/v1/sprints/" + projectCode + "/unfinished")
     }
+
+    async closeSprint(sprintId) {
+        return restTemplate.get("/api/v1/sprints/" + sprintId + "/close");
+    }
 }
 
 export default new SprintClient();

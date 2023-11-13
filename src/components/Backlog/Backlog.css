@@ -43,6 +43,74 @@
     height: 20px;
 }
 
+.generic-backlog .sprint-header {
+    margin: 10px 0;
+    padding: 15px 0;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    font-size: 14px;
+    display: grid;
+    color: #303030;
+    grid-template-columns: 200px 1fr 200px;
+    grid-column-gap: 10px;
+    align-items: center;
+    align-content: center;
+}
+
+.generic-backlog .sprint-header .sprint-header-title {
+    padding: 0 10px;
+}
+
+.generic-backlog .sprint-header .sprint-header-dates {
+    padding: 0 10px;
+}
+
+.generic-backlog .sprint-header .sprint-header-buttons {
+    padding: 0 10px;
+}
+
+.generic-backlog .sprint-header .sprint-header-buttons .close-sprint {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    grid-column-gap: 3px;
+    align-items: center;
+    align-content: center;
+}
+
+.generic-backlog .sprint-header .sprint-header-buttons .close-sprint svg {
+    display: block;
+    fill: none;
+    width: 18px;
+    height: 18px;
+}
+
+.generic-backlog .sprint-header .sprint-header-buttons .close-sprint svg path {
+    stroke: #303030;
+}
+
+.generic-backlog .sprint-header .sprint-header-buttons .close-sprint:hover {
+    color: #0d42ff;
+    cursor: pointer;
+}
+
+.generic-backlog .sprint-header .sprint-header-buttons .close-sprint:hover svg path {
+    stroke: #0d42ff;
+}
+
+.generic-backlog .sprint-header a:link {
+    color: #303030;
+    text-decoration: none;
+}
+
+.generic-backlog .sprint-header a:visited {
+    color: #303030;
+}
+
+.generic-backlog .sprint-header a:hover {
+    color: #0d42ff;
+    text-decoration: underline;
+}
+
 .generic-backlog .task-list {
     margin: 20px 0;
 }
@@ -67,6 +135,7 @@
     min-height: 25px;
     background-color: #ffffff;
 }
+
 .generic-backlog .task-list .task-item a:link {
     color: #303030;
     text-decoration: none;

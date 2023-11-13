@@ -3,10 +3,11 @@ import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import BacklogClient from "../../clients/BacklogClient";
 import SprintClient from "../../clients/SprintClient";
+import ProjectClient from "../../clients/ProjectClient";
 import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import BacklogTask from "./BacklogTask";
 import SelectBox from "../Input/SelectBox";
-import {all} from "axios";
+import SprintHeader from "./SprintHeader";
 
 function Backlog() {
     const {projectCode} = useParams();
@@ -14,8 +15,10 @@ function Backlog() {
     const navigate = useNavigate();
 
     let [tasks, setTasks] = useState([]);
+    let [sprintsData, setSprintsData] = useState([]);
     let [sprints, setSprints] = useState([]);
     let [executors, setExecutors] = useState([]);
+    let [isProjectAdmin, setIsProjectAdmin] = useState(false);
 
     let [filterTaskSubject, setFilterTaskSubject] = useState('');
     let [filterSprint, setFilterSprint] = useState('-');
@@ -23,6 +26,7 @@ function Backlog() {
 
     async function getBacklogTasks() {
         try {
+            await getIsCurrentUserAdmin();
             let response = await BacklogClient.getBacklog({
                 "projectCode": projectCode ? projectCode : null
             })
@@ -42,9 +46,18 @@ function Backlog() {
             unfinishedSprints.data.forEach((sprint) => {
                 sprints[sprint.id] = sprint.title;
             });
+            setSprintsData(unfinishedSprints.data);
             setFilterSprint(chooseActiveSprint(unfinishedSprints.data));
         }
         setSprints(sprints);
+    }
+
+    async function getIsCurrentUserAdmin() {
+        if (projectCode) {
+            let response = await ProjectClient.isCurrentUserAdmin(projectCode);
+            setIsProjectAdmin(response.data);
+        }
+        return false;
     }
 
     function getExecutors(allTasks) {
@@ -111,6 +124,17 @@ function Backlog() {
         return "-";
     }
 
+    function activeSprintDetails() {
+        if (filterSprint && sprintsData) {
+            for (let sprint of sprintsData) {
+                if (filterSprint.toString() === sprint?.id.toString()) {
+                    return sprint;
+                }
+            }
+        }
+        return {};
+    }
+
     function onDragEnd(result) {
         const {destination, source, draggableId} = result;
 
@@ -142,6 +166,11 @@ function Backlog() {
         } else {
             navigate("/search");
         }
+    }
+
+    async function onCloseSprints() {
+        await getBacklogTasks();
+        await getSprints(projectCode ? projectCode : null);
     }
 
     useEffect(() => {
@@ -201,6 +230,10 @@ function Backlog() {
                     </div>
                 </div>
             </div>
+
+            {filterSprint !== '-' && isProjectAdmin &&
+                <SprintHeader sprintDetails={activeSprintDetails()}
+                              onCloseSprint={onCloseSprints} /> }
 
             <div className={"task-list"}>
                 <div className={"task-list-header"}>

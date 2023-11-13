@@ -12,6 +12,10 @@ class ProjectClient {
             code: projectCode
         })
     }
+
+    async isCurrentUserAdmin(projectCode) {
+        return restTemplate.get("/api/v1/projects/" + projectCode + "/is-admin");
+    }
 }
 
 export default new ProjectClient();
