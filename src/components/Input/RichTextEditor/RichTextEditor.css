@@ -1,0 +1,11 @@
+.tox-tinymce {
+    outline: none;
+    border: 1px solid rgb(0, 132, 255) !important;
+    outline: 0;
+    box-shadow: 0 0 0 2px rgb(13 110 253 / 25%) !important;
+    border-radius: 5px !important;
+}
+
+.tox .tox-statusbar {
+    display: none !important;
+}

@@ -51,6 +51,10 @@ function TaskHistory({taskCode}) {
         if (value && value !== '') {
             if (changeCode === "DUE_DATE") {
                 return (TaskUtilService.getLocalDateByIsoDate(value));
+            } if (changeCode === "EXPLANATION") {
+                return (<span dangerouslySetInnerHTML={
+                    {__html: value}
+                }/>);
             } else {
                 return (value);
             }
@@ -65,6 +69,10 @@ function TaskHistory({taskCode}) {
         if (value && value !== '') {
             if (changeCode === "DUE_DATE") {
                 return (TaskUtilService.getLocalDateByIsoDate(value));
+            } if (changeCode === "EXPLANATION") {
+                return (<span dangerouslySetInnerHTML={
+                    {__html: value}
+                }/>);
             } else {
                 return (value);
             }

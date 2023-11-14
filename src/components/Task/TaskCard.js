@@ -19,6 +19,7 @@ import TaskSprint from "./TaskSprint";
 import TaskFiles from "./Files/TaskFiles";
 import TaskTopButtons from "./TaskTopButtons";
 import TaskHistory from "./History/TaskHistory";
+import RichTextEditor from "../Input/RichTextEditor/RichTextEditor";
 
 const TaskCard = observer(({errorStore}) => {
 
@@ -120,6 +121,18 @@ const TaskCard = observer(({errorStore}) => {
 
     async function closeEditExplanation(event) {
         let explanation = event.target.value;
+        if (explanation && explanation !== '') {
+            let oldExplanation = task.explanation;
+            if (oldExplanation !== explanation) {
+                task.explanation = explanation;
+                setTask(task);
+                await TaskClient.updateTaskExplanation(task.code, explanation);
+            }
+        }
+        setIsEditExplanation(false);
+    }
+
+    async function onChangeEditorExplanation(explanation) {
         if (explanation && explanation !== '') {
             let oldExplanation = task.explanation;
             if (oldExplanation !== explanation) {
@@ -333,12 +346,8 @@ const TaskCard = observer(({errorStore}) => {
                                 <TaskExplanation explanation={task.explanation} />
                             </div>}
                         {isEditExplanation &&
-                            <div className={""}>
-                                <textarea style={{height: "150px"}}
-                                          autoFocus={true}
-                                          defaultValue={task.explanation}
-                                          onBlur={closeEditExplanation}/>
-                            </div>}
+                            <RichTextEditor initialValue={task.explanation}
+                                            onChange={onChangeEditorExplanation} />}
                     </div>
                 </div>
 

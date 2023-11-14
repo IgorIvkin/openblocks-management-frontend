@@ -4,7 +4,7 @@ function TaskExplanation({explanation}) {
 
     function prepareExplanation(source) {
         if (source) {
-            return source.replaceAll("\n", "<br />")
+            return source;
         }
         return '';
     }
