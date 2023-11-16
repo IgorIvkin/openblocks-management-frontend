@@ -43,6 +43,30 @@
     height: 20px;
 }
 
+.generic-backlog .backlog-header .backlog-project-access {
+    font-size: 14px;
+    display: grid;
+    grid-template-columns: 21px auto;
+    grid-column-gap: 5px;
+    align-items: center;
+}
+
+.generic-backlog .backlog-header .backlog-project-access:hover {
+    color: #0d42ff;
+    cursor: pointer;
+}
+
+.generic-backlog .backlog-header .backlog-project-access:hover svg {
+    stroke: #0d42ff;
+}
+
+.generic-backlog .backlog-header .backlog-project-access svg {
+    stroke: #303030;
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
 .generic-backlog .sprint-header {
     margin: 10px 0;
     padding: 15px 0;

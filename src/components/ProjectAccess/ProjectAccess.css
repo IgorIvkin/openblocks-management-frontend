@@ -1,0 +1,68 @@
+.generic-container .project-access-list {
+    margin: 24px 20px;
+    border-top: 1px solid #dcdcdc;
+}
+
+.generic-container .project-access-list h1 {
+    margin: 0px;
+    padding: 20px 0;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.generic-container .project-access-list .project-access-item-header {
+    font-weight: 600;
+}
+
+.generic-container .project-access-list .project-access-item {
+    max-width: 600px;
+    margin: 0 0 10px 0;
+    padding: 0 0 10px 0;
+    border-bottom: 1px dashed #dcdcdc;
+    display: grid;
+    grid-template-columns: 400px 1fr 20px;
+    grid-column-gap: 20px;
+    align-items: center;
+    align-content: center;
+}
+
+.generic-container .project-access-list .project-access-item .user-login {
+    display: block;
+    color: #707070;
+    font-size: 14px;
+}
+
+.generic-container .project-access-list .project-access-item:hover .project-access-delete svg {
+    opacity: 1;
+}
+
+.generic-container .project-access-list .project-access-item  .project-access-delete svg {
+    fill: #505050;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    transition: 0.2s;
+    display: block;
+}
+
+.generic-container .project-access-list .project-access-item  .project-access-delete svg:hover {
+    fill: #0084ff;
+    cursor: pointer;
+}
+
+.generic-container .project-access-list .project-access-add {
+    margin: 20px 0;
+}
+
+.generic-container .project-access-list .project-access-add h3 {
+    margin: 10px 0;
+    font-weight: 500;
+    font-size: 16px;
+}
+.generic-container .project-access-list .project-access-add .project-access-add-form {
+    display: grid;
+    grid-template-columns: 400px 30px 150px;
+    grid-column-gap: 20px;
+    align-items: center;
+    align-content: center;
+}

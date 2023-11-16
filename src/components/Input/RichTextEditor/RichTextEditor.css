@@ -1,9 +1,26 @@
 .tox-tinymce {
     outline: none;
+    border: 1px solid #dcdcdc !important;
+    outline: 0;
+    box-shadow: none !important;
+    border-radius: 5px !important;
+}
+
+.focused-rich-editor .tox-tinymce {
+    outline: none;
     border: 1px solid rgb(0, 132, 255) !important;
     outline: 0;
     box-shadow: 0 0 0 2px rgb(13 110 253 / 25%) !important;
     border-radius: 5px !important;
+}
+
+.input-rich-edit-error .tox-tinymce {
+    outline: none;
+    outline: 0;
+    border-radius: 5px !important;
+    border-color: #cc0000 !important;
+    color: #cc0000;
+    box-shadow: 0 0 0 2px rgba(204, 0, 0, 0.25) !important;
 }
 
 .tox .tox-statusbar {

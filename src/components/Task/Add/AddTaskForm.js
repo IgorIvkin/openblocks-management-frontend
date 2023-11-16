@@ -7,6 +7,7 @@ import SprintClient from "../../../clients/SprintClient";
 import SelectBox from "../../Input/SelectBox";
 import UserAutocomplete from "../UserAutocomplete";
 import Datepicker from "../../Input/Datepicker";
+import RichTextEditor from "../../Input/RichTextEditor/RichTextEditor";
 
 function AddTaskForm() {
 
@@ -93,9 +94,8 @@ function AddTaskForm() {
         setSubject(value);
     }
 
-    function onChangeExplanation(event) {
+    function onChangeExplanationRichEditor(value) {
         setExplanationErrorStatus(false);
-        let value = event.target.value;
         setExplanation(value);
     }
 
@@ -115,7 +115,7 @@ function AddTaskForm() {
     }
 
     function getExplanationErrorStatus() {
-        return explanationErrorStatus ? "input-error" : "";
+        return explanationErrorStatus ? "input-rich-edit-error" : "";
     }
 
     async function onClickAddTask() {
@@ -207,11 +207,9 @@ function AddTaskForm() {
                            onChange={onChangeSubject}/>
                 </div>
                 <div className={"add-task-explanation add-task-item"}>
-                    <textarea style={{height: "200px"}}
-                              value={explanation}
-                              className={getExplanationErrorStatus()}
-                              placeholder={"Введите описание задачи"}
-                              onChange={onChangeExplanation}/>
+                    <RichTextEditor autoFocus={false}
+                                    className={getExplanationErrorStatus()}
+                                    onChange={onChangeExplanationRichEditor} />
                 </div>
             </div>
 

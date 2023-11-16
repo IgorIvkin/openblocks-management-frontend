@@ -20,6 +20,7 @@ import TaskFiles from "./Files/TaskFiles";
 import TaskTopButtons from "./TaskTopButtons";
 import TaskHistory from "./History/TaskHistory";
 import RichTextEditor from "../Input/RichTextEditor/RichTextEditor";
+import ErrorUtilService from "../../service/ErrorUtilService";
 
 const TaskCard = observer(({errorStore}) => {
 
@@ -45,7 +46,8 @@ const TaskCard = observer(({errorStore}) => {
             setTask(response.data);
             await getSprints(response.data?.project?.code);
         } catch (error) {
-            handleTaskError(error, "Не получилось загрузить данные по задаче " + taskCode)
+           ErrorUtilService.handleGenericApiError(errorStore, error,
+               "Не получилось загрузить данные по задаче " + taskCode);
         }
     }
 
@@ -346,7 +348,9 @@ const TaskCard = observer(({errorStore}) => {
                                 <TaskExplanation explanation={task.explanation} />
                             </div>}
                         {isEditExplanation &&
-                            <RichTextEditor initialValue={task.explanation}
+                            <RichTextEditor className={"focused-rich-editor"}
+                                            initialValue={task.explanation}
+                                            autoFocus={true}
                                             onChange={onChangeEditorExplanation} />}
                     </div>
                 </div>
