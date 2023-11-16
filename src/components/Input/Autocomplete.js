@@ -1,12 +1,11 @@
 import './Autocomplete.css'
-import React, {useEffect, useState} from "react";
+import React, {useRef, useState} from "react";
 
 function Autocomplete({id, autocompleteSource, autoCompleteLayout, autoFocus, onChange, placeholder}) {
 
-    const [layoutItems, setLayoutItems] = useState([]);
-    const [autocompleteValue, setAutocompleteValue] = useState('');
+    const autoCompleteInputRef = useRef(null);
 
-    let typingTimeout = null;
+    const [layoutItems, setLayoutItems] = useState([]);
 
     function onBlurAutocomplete(event) {
         event.stopPropagation();
@@ -19,50 +18,53 @@ function Autocomplete({id, autocompleteSource, autoCompleteLayout, autoFocus, on
     function onClickAutocompleteItem(item) {
         setLayoutItems([]);
         if (onChange) {
-            onChange(item, setAutocompleteValue);
+            onChange(item, autoCompleteInputRef);
         }
     }
 
-    function innerOnChange(event) {
-        let value = event.target.value;
-        setAutocompleteValue(value);
+    let typingTimeout = null;
 
-        if (typingTimeout) {
-            clearTimeout(typingTimeout)
-        }
-        typingTimeout = setTimeout(async () => {
-            if (autocompleteSource) {
-                try {
-                    let autocompleteItems = [];
-                    if (value !== '') {
-                        const responseItems = await autocompleteSource(value);
-                        if (responseItems.data) {
-                            responseItems.data.forEach((item) => {
-                                autocompleteItems.push(
-                                    <div className={"autocomplete-layout-item"}
-                                         onClick={() => {
-                                             onClickAutocompleteItem(item)
-                                         }}>
-                                        {autoCompleteLayout(item)}
-                                    </div>
-                                );
-                            });
-                        }
+    function innerOnChange(event) {
+        clearTimeout(typingTimeout);
+        typingTimeout = setTimeout(async function() {
+            await innerLoadAutocomplete(event);
+        }, 700);
+    }
+
+    async function innerLoadAutocomplete(event) {
+        let value = event.target.value;
+
+        if (autocompleteSource) {
+            try {
+                let autocompleteItems = [];
+                if (value !== '') {
+                    const responseItems = await autocompleteSource(value);
+                    if (responseItems.data) {
+                        responseItems.data.forEach((item) => {
+                            autocompleteItems.push(
+                                <div className={"autocomplete-layout-item"}
+                                     onClick={() => {
+                                         onClickAutocompleteItem(item)
+                                     }}>
+                                    {autoCompleteLayout(item)}
+                                </div>
+                            );
+                        });
                     }
-                    setLayoutItems(autocompleteItems);
-                } catch (error) {
-                    console.log(error);
                 }
+                setLayoutItems(autocompleteItems);
+            } catch (error) {
+                console.log(error);
             }
-        }, 700)
+        }
     }
 
     return (
         <div className={"autocomplete"}>
             <input type={"text"}
+                   ref={autoCompleteInputRef}
                    id={id}
                    name={id}
-                   value={autocompleteValue}
                    autoComplete={"off"}
                    autoFocus={autoFocus ? autoFocus : false}
                    placeholder={placeholder}

@@ -199,9 +199,9 @@ function DetailedSearch() {
                         <label>Владелец</label>
                         <UserAutocomplete id={"owner-autocomplete"}
                                           autoFocus={false}
-                                          onChange={(item, setAutocompleteValue) => {
-                                              if (setAutocompleteValue) {
-                                                  setAutocompleteValue(item?.name);
+                                          onChange={(item, autoCompleteRef) => {
+                                              if (autoCompleteRef) {
+                                                  autoCompleteRef.current.value = item?.name;
                                               }
                                               setFilterOwner(item);
                                           }}/>
@@ -211,9 +211,9 @@ function DetailedSearch() {
                         <label>Исполнитель</label>
                         <UserAutocomplete id={"executor-autocomplete"}
                                           autoFocus={false}
-                                          onChange={(item, setAutocompleteValue) => {
-                                              if (setAutocompleteValue) {
-                                                  setAutocompleteValue(item?.name);
+                                          onChange={(item, autoCompleteRef) => {
+                                              if (autoCompleteRef) {
+                                                  autoCompleteRef.current.value = item?.name;
                                               }
                                               setFilterExecutor(item);
                                           }}/>

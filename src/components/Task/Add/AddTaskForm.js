@@ -219,9 +219,9 @@ function AddTaskForm() {
                     <div className={"add-task-param-value"}>
                         <UserAutocomplete id={"owner-autocomplete"}
                                           autoFocus={false}
-                                          onChange={(item, setAutocompleteValue) => {
-                                              if (setAutocompleteValue) {
-                                                  setAutocompleteValue(item?.name);
+                                          onChange={(item, autoCompleteRef) => {
+                                              if (autoCompleteRef) {
+                                                  autoCompleteRef.current.value = item?.name;
                                               }
                                               setExecutor(item);
                                           }} />

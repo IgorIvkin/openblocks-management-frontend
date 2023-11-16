@@ -73,9 +73,9 @@ export default function ProjectAccessList({errorStore}) {
                     <div className={"project-access-form-username"}>
                         <UserAutocomplete id={"user-access-autocomplete"}
                                           autoFocus={false}
-                                          onChange={(item, setAutocompleteValue) => {
-                                              if (setAutocompleteValue) {
-                                                  setAutocompleteValue(item?.name);
+                                          onChange={(item, autoCompleteRef) => {
+                                              if (autoCompleteRef) {
+                                                  autoCompleteRef.current.value = item?.name;
                                               }
                                               setNewUser(item);
                                           }} />
