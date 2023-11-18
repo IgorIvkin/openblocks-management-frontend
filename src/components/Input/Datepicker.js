@@ -3,7 +3,8 @@ import './Datepicker.css';
 import React, {useEffect} from "react";
 import datepicker from 'js-datepicker';
 
-function Datepicker({id, rangeId, selectedDate, onChange, autoFocus, autoOpen}) {
+function Datepicker({id, rangeId, selectedDate, disabledBy, onChange, autoFocus, autoOpen,
+                        placeholder, additionalClasses}) {
 
     let picker = null;
 
@@ -22,6 +23,7 @@ function Datepicker({id, rangeId, selectedDate, onChange, autoFocus, autoOpen}) 
                         onChange(instance.dateSelected);
                     }
                 },
+                disabler: disabledBy,
                 disableYearOverlay: true,
                 dateSelected: getIsoDate(selectedDate),
                 formatter: (input, date, instance) => {
@@ -41,6 +43,8 @@ function Datepicker({id, rangeId, selectedDate, onChange, autoFocus, autoOpen}) 
     return (
         <input type={"text"}
                autoComplete={"off"}
+               className={additionalClasses ? additionalClasses : ''}
+               placeholder={placeholder}
                autoFocus={autoFocus ? autoFocus : false}
                id={id}></input>
     );

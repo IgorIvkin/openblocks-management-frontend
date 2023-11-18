@@ -252,7 +252,8 @@ function Backlog() {
             </div>
 
             {filterSprint !== '-' && isProjectAdmin &&
-                <SprintHeader sprintDetails={activeSprintDetails()}
+                <SprintHeader projectCode={projectCode}
+                              sprintDetails={activeSprintDetails()}
                               onCloseSprint={onCloseSprints} /> }
 
             <div className={"task-list"}>

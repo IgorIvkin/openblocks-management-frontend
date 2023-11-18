@@ -15,6 +15,7 @@ import ErrorContext from "./components/ErrorContext/ErrorContext";
 import errorStore from "./store/ErrorStore";
 import UserCard from "./components/Profile/UserCard";
 import ProjectAccessList from "./components/ProjectAccess/ProjectAccessList";
+import Sprints from "./components/Sprint/Sprints";
 
 const App = observer(() => {
 
@@ -31,6 +32,7 @@ const App = observer(() => {
                             <Route path="backlog/:projectCode" element={<Backlog/>}/>
                             <Route path="projects" element={<ProjectList errorStore={errorStore} />}/>
                             <Route path="projects/:projectCode/access" element={<ProjectAccessList errorStore={errorStore} />}/>
+                            <Route path="projects/:projectCode/sprints" element={<Sprints errorStore={errorStore} />}/>
                             <Route path="tasks/view/:taskCode" element={<TaskCard errorStore={errorStore} />}/>
                             <Route path="add-task" element={<AddTaskForm/>}/>
                             <Route path="add-task/:projectCode" element={<AddTaskForm/>}/>

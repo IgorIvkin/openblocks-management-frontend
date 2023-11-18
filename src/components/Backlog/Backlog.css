@@ -75,7 +75,7 @@
     font-size: 14px;
     display: grid;
     color: #303030;
-    grid-template-columns: 200px 1fr 200px;
+    grid-template-columns: 200px 1fr 320px;
     grid-column-gap: 10px;
     align-items: center;
     align-content: center;
@@ -90,6 +90,13 @@
 }
 
 .generic-backlog .sprint-header .sprint-header-buttons {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 10px;
+    align-items: center;
+    align-content: center;
+    justify-items: end;
+    justify-content: end;
     padding: 0 10px;
 }
 
@@ -119,6 +126,30 @@
 
 .generic-backlog .sprint-header .sprint-header-buttons .close-sprint:hover svg path {
     stroke: #0d42ff;
+}
+
+.generic-backlog .sprint-header .sprint-header-buttons .create-sprint {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    grid-column-gap: 3px;
+    align-items: center;
+    align-content: center;
+}
+
+.generic-backlog .sprint-header .sprint-header-buttons .create-sprint svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+    fill: #303030;
+}
+
+.generic-backlog .sprint-header .sprint-header-buttons .create-sprint:hover {
+    color: #0d42ff;
+    cursor: pointer;
+}
+
+.generic-backlog .sprint-header .sprint-header-buttons .create-sprint:hover svg {
+    fill: #0d42ff;
 }
 
 .generic-backlog .sprint-header a:link {

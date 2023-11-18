@@ -24,6 +24,13 @@ function TaskLink({taskCode, link, taskLinkTypes, onDelete}) {
         }
     }
 
+    function getClosedTaskClass(status) {
+        if (status === 'CLOSED' || status === 'REJECTED') {
+            return "task-link-closed";
+        }
+        return '';
+    }
+
     return (
         <div className={"task-link-list-item"}>
             {isDeleteModal &&
@@ -48,10 +55,10 @@ function TaskLink({taskCode, link, taskLinkTypes, onDelete}) {
                            selectedKey={link.linkType}
                            name={"task-link-type"} />
             </div>
-            <div className={"task-link-code"}>
+            <div className={"task-link-code " + getClosedTaskClass(link?.connectedTask.status)}>
                 {link?.connectedTask?.code}
             </div>
-            <div className={"task-link-subject"}>
+            <div className={"task-link-subject " + getClosedTaskClass(link?.connectedTask.status)}>
                 <a href={"/tasks/view/" + link?.connectedTask?.code}>{link?.connectedTask?.subject}</a>
             </div>
             <div className={"task-link-delete"}

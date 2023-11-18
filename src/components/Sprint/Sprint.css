@@ -1,0 +1,38 @@
+.sprint-list {
+    margin: 24px 20px;
+    border-top: 1px solid #dcdcdc;
+}
+
+.sprint-list h1 {
+    margin: 0px;
+    padding: 20px 0;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.sprint-list .sprint-list-items {
+    margin: 20px 0;
+}
+
+.sprint-list .sprint-list-items-header {
+    font-weight: 600;
+}
+
+.sprint-list .sprint-list-items-item {
+    padding: 10px 0;
+    border-bottom: 1px dashed #dcdcdc;
+    display: grid;
+    grid-template-columns: 200px 200px 200px 1fr;
+    grid-column-gap: 15px;
+    align-items: center;
+    align-content: center;
+}
+
+.sprint-list .add-sprint-form {
+    margin: 40px 0;
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px;
+    grid-column-gap: 15px;
+    align-items: center;
+    align-content: center;
+}

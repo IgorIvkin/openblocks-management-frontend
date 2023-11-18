@@ -3,13 +3,20 @@ import React, {useState} from "react";
 import ModalWindow from "../Modal/ModalWindow";
 import TaskUtilService from "../../service/TaskUtilService";
 import SprintClient from "../../clients/SprintClient";
+import {useNavigate} from "react-router-dom";
 
-function SprintHeader({sprintDetails, onCloseSprint}) {
+function SprintHeader({projectCode, sprintDetails, onCloseSprint}) {
+
+    let navigate = useNavigate();
 
     let [isCloseModal, setIsCloseModal] = useState(false);
 
     function openCloseSprintModal() {
         setIsCloseModal(true);
+    }
+
+    function onClickCreateSprint() {
+        navigate("/projects/" + projectCode + "/sprints");
     }
 
     return (
@@ -43,6 +50,15 @@ function SprintHeader({sprintDetails, onCloseSprint}) {
                     Идёт с {TaskUtilService.getLocalDateByIsoDate(sprintDetails.startDate)} по {TaskUtilService.getLocalDateByIsoDate(sprintDetails.endDate)}
                 </div>
                 <div className={"sprint-header-buttons"}>
+                    <div className={"create-sprint"}
+                         onClick={onClickCreateSprint}>
+                        <svg viewBox="0 0 22 22"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 17H10V12H5V10H10V5H12V10H17V12H12Z" />
+                        </svg>
+                        <span>Добавить спринт</span>
+                    </div>
+
                     <div className={"close-sprint"}
                          onClick={openCloseSprintModal}>
                         <svg viewBox="0 0 24 24"

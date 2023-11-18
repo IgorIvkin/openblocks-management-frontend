@@ -104,3 +104,17 @@
     fill: #0084ff;
     cursor: pointer;
 }
+
+.generic-container .task-card .task-links .task-link-list-item .task-link-closed.task-link-code {
+    text-decoration: line-through #303030;
+}
+
+.generic-container .task-card .task-links .task-link-list-item .task-link-closed.task-link-subject {
+    text-decoration: line-through #303030;
+}
+
+.generic-container .task-card .task-links .task-link-list-item .task-link-closed.task-link-subject a:link,
+.generic-container .task-card .task-links .task-link-list-item .task-link-closed.task-link-subject a:visited {
+    color: #505050;
+    border-bottom: 0;
+}
