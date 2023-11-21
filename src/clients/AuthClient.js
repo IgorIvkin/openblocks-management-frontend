@@ -6,7 +6,11 @@ class AuthClient {
         return restTemplate.post("/api/v1/auth", {
             "userName": login,
             "password": password
-        })
+        });
+    }
+
+    async logout() {
+        return restTemplate.get("/api/v1/auth/logout");
     }
 }
 

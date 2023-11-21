@@ -40,6 +40,16 @@
     color: #0d42ff;
 }
 
+.generic-container .user-card .user-card-common .user-card-menu .user-card-logout-item a:link,
+.generic-container .user-card .user-card-common .user-card-menu .user-card-logout-item a:visited {
+    text-decoration: none;
+    color: #cc0000;
+}
+
+.generic-container .user-card .user-card-common .user-card-menu .user-card-logout-item a:hover {
+    color: #ff0000;
+}
+
 .generic-container .user-card .user-card-common .user-card-profile-items {
 }
 

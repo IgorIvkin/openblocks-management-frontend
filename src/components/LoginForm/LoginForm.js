@@ -1,7 +1,9 @@
+import './LoginForm.css';
 import React, {useState} from "react";
 import AuthService from "../../service/AuthService";
+import ErrorUtilService from "../../service/ErrorUtilService";
 
-function LoginForm() {
+function LoginForm({errorStore}) {
 
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
@@ -17,28 +19,41 @@ function LoginForm() {
     };
 
     async function authenticate(event) {
-        event.preventDefault()
-        await AuthService.authenticate(login, password)
+        event.preventDefault();
+        try {
+            await AuthService.authenticate(login, password);
+        } catch (error) {
+            ErrorUtilService.handleGenericApiError(errorStore, error, "Не удалось войти");
+        }
     }
 
     return (
         <div className={"login-form"}>
             <form onSubmit={authenticate}>
-                <label htmlFor={"login"}>Логин</label>
-                <input type={"text"}
-                       value={login}
-                       placeholder={"test@example.com"}
-                       name={"login"}
-                       onChange={onLoginChange}/>
-                <br/>
-                <label htmlFor={"password"}>Пароль</label>
-                <input type={"password"}
-                       value={password}
-                       name={"password"}
-                       onChange={onPasswordChange}/>
-                <button>
-                    Войти
-                </button>
+                <div className={"login-form-item"}>
+                    <label htmlFor={"login"}>Логин</label>
+                    <input type={"text"}
+                           value={login}
+                           autoComplete={"off"}
+                           placeholder={"test@example.com"}
+                           name={"login"}
+                           onChange={onLoginChange}/>
+                </div>
+
+                <div className={"login-form-item"}>
+                    <label htmlFor={"password"}>Пароль</label>
+                    <input type={"password"}
+                           autoComplete={"off"}
+                           value={password}
+                           name={"password"}
+                           onChange={onPasswordChange}/>
+                </div>
+
+                <div className={"login-form-item"}>
+                    <button className={"btn-add"}>
+                        Войти
+                    </button>
+                </div>
             </form>
         </div>
     );

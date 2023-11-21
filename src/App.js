@@ -25,7 +25,7 @@ const App = observer(() => {
                 <BrowserRouter>
                     <ManagementHeader/>
                     <Routes>
-                        <Route path="/login" element={<LoginForm/>}/>
+                        <Route path="/login" element={<LoginForm errorStore={errorStore} />}/>
                         <Route path="/" element={<PrivateRoute/>}>
                             <Route path="" element={<Backlog/>}/>
                             <Route path="backlog" element={<Backlog/>}/>

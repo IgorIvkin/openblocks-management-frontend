@@ -3,6 +3,7 @@ import React, {useState, useEffect} from "react";
 import UserClient from "../../clients/UserClient";
 import UserProfile from "./UserProfile";
 import UserProfilePassword from "./UserProfilePassword";
+import AuthClient from "../../clients/AuthClient";
 
 function UserCard({activeTab, errorStore}) {
 
@@ -24,6 +25,13 @@ function UserCard({activeTab, errorStore}) {
         return "";
     }
 
+    async function onClickLogout() {
+        await AuthClient.logout();
+        localStorage.removeItem('access_token');
+        console.log("Successfully logout");
+        document.location.href = '/';
+    }
+
     useEffect(() => {
         getUserCard();
     }, []);
@@ -42,6 +50,10 @@ function UserCard({activeTab, errorStore}) {
                     </div>
                     <div className={"user-card-menu-item " + getActiveTabClass("password")}>
                         <a href={"/profile/password"}>Пароль</a>
+                    </div>
+                    <div className={"user-card-menu-item user-card-logout-item"}>
+                        <a href={"#"}
+                           onClick={onClickLogout}>Выйти</a>
                     </div>
                 </div>
                 <div className={"user-card-info"}>

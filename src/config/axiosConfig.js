@@ -14,7 +14,7 @@ export const restTemplate = axios.create({
 });
 
 restTemplate.interceptors.request.use((request) => {
-    let token = localStorage.getItem("token");
+    let token = localStorage.getItem("access_token");
     if (token) {
         request.headers['Authorization'] = "Bearer " + token;
     }
