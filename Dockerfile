@@ -1,5 +1,5 @@
 # build application
-FROM node:18-alpine3.18 as build
+FROM node:20-alpine3.18 as build
 COPY . .
 RUN npm run build
 
