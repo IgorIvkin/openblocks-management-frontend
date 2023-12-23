@@ -14,7 +14,9 @@ function Backlog() {
 
     const navigate = useNavigate();
 
+    let [sprintLayout, setSprintLayout] = useState([]);
     let [tasks, setTasks] = useState([]);
+    let [filteredTasks, setFilteredTasks] = useState([]);
     let [sprintsData, setSprintsData] = useState([]);
     let [sprints, setSprints] = useState([]);
     let [executors, setExecutors] = useState([]);
@@ -30,7 +32,8 @@ function Backlog() {
             let response = await BacklogClient.getBacklog({
                 "projectCode": projectCode ? projectCode : null
             })
-            let allTasks = response.data
+
+            let allTasks = response.data;
             setTasks(allTasks);
             getExecutors(allTasks);
         } catch (error) {
@@ -47,9 +50,18 @@ function Backlog() {
                 sprints[sprint.id] = sprint.title;
             });
             setSprintsData(unfinishedSprints.data);
-            setFilterSprint(chooseActiveSprint(unfinishedSprints.data));
+            let sprintId = chooseActiveSprint(unfinishedSprints.data)
+            setFilterSprint(sprintId);
+            await getSprintLayout(sprintId);
         }
         setSprints(sprints);
+    }
+
+    async function getSprintLayout(sprintId) {
+        if (sprintId !== '-') {
+            let response = await SprintClient.getSprintLayout(sprintId);
+            setSprintLayout(response.data.sprintLayout);
+        }
     }
 
     async function getIsCurrentUserAdmin() {
@@ -76,8 +88,9 @@ function Backlog() {
         setFilterTaskSubject(value);
     }
 
-    function onFilterSprintChange(sprint) {
+    async function onFilterSprintChange(sprint) {
         setFilterSprint(sprint);
+        await getSprintLayout(sprint);
     }
 
     function onFilterExecutorChange(executor) {
@@ -147,9 +160,21 @@ function Backlog() {
             return;
         }
 
-        let sourceItem = tasks[source.index];
-        tasks.splice(source.index, 1);
-        tasks.splice(destination.index, 0, sourceItem);
+        let sourceItem = filteredTasks[source.index];
+        filteredTasks.splice(source.index, 1);
+        filteredTasks.splice(destination.index, 0, sourceItem);
+
+        storeTaskOrder();
+    }
+
+    function storeTaskOrder() {
+        let taskOrder = [];
+        for (let task of filteredTasks) {
+            taskOrder.push(task.taskCode);
+        }
+        if (projectCode && filterSprint !== '-') {
+            SprintClient.updateSprintLayout(projectCode, filterSprint, taskOrder);
+        }
     }
 
     function onClickAddTask() {
@@ -179,10 +204,37 @@ function Backlog() {
         await getSprints(projectCode ? projectCode : null);
     }
 
+    function filterAndSortTasks() {
+        let items = tasks.filter((task) => applyFilterOnTaskItem(task));
+        if (sprintLayout.length > 0) {
+            let taskOrder = {};
+            sprintLayout.forEach((item, index) => {
+                taskOrder[item] = index;
+            });
+
+            items = items.sort((left, right) => {
+                let leftTaskCode = left.taskCode;
+                let rightTaskCode = right.taskCode;
+                if (taskOrder[leftTaskCode] < taskOrder[rightTaskCode]) {
+                    return -1;
+                } else if (taskOrder[leftTaskCode] > taskOrder[rightTaskCode]) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+        }
+        return items;
+    }
+
     useEffect(() => {
         getBacklogTasks();
         getSprints(projectCode ? projectCode : null);
     }, []);
+
+    useEffect(() => {
+        setFilteredTasks(filterAndSortTasks());
+    }, [tasks, filterTaskSubject, filterSprint, filterExecutor, sprintLayout]);
 
     return (
         <div className="generic-backlog">
@@ -268,7 +320,7 @@ function Backlog() {
                         {(provided) => (
                             <div ref={provided.innerRef}
                                  {...provided.droppableProps}>
-                                {tasks
+                                {filteredTasks
                                     .filter((task) => applyFilterOnTaskItem(task))
                                     .map((task, i) => {
                                     return (

@@ -22,6 +22,17 @@ class SprintClient {
     async closeSprint(sprintId) {
         return restTemplate.get("/api/v1/sprints/" + sprintId + "/close");
     }
+
+    async updateSprintLayout(projectCode, sprintId, sprintLayout) {
+        return restTemplate.put("/api/v1/sprint-layout/" + projectCode, {
+            sprintId: sprintId,
+            sprintLayout: sprintLayout
+        });
+    }
+
+    async getSprintLayout(sprintId) {
+        return restTemplate.get("/api/v1/sprint-layout/" + sprintId);
+    }
 }
 
 export default new SprintClient();
