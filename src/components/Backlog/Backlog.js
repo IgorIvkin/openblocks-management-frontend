@@ -148,7 +148,7 @@ function Backlog() {
         return {};
     }
 
-    function onDragEnd(result) {
+    async function onDragEnd(result) {
         const {destination, source, draggableId} = result;
 
         if (!destination) {
@@ -164,16 +164,16 @@ function Backlog() {
         filteredTasks.splice(source.index, 1);
         filteredTasks.splice(destination.index, 0, sourceItem);
 
-        storeTaskOrder();
+        await storeTaskOrder();
     }
 
-    function storeTaskOrder() {
+    async function storeTaskOrder() {
         let taskOrder = [];
         for (let task of filteredTasks) {
             taskOrder.push(task.taskCode);
         }
         if (projectCode && filterSprint !== '-') {
-            SprintClient.updateSprintLayout(projectCode, filterSprint, taskOrder);
+            await SprintClient.updateSprintLayout(projectCode, filterSprint, taskOrder);
         }
     }
 

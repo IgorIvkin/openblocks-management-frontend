@@ -73,7 +73,8 @@ function ProjectList({errorStore}) {
                 })
                 .map((project, i) => {
                     return (
-                        <ProjectListItem projectCode={project.code}
+                        <ProjectListItem key={project.code}
+                                         projectCode={project.code}
                                          projectTitle={project.title}/>
                     );
                 })}
